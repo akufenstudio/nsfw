@@ -32,118 +32,54 @@
  *
  */
 
-import { merge } from 'akfn/nsfw/utils/utils';
+class FPSMonitor {
 
-/**
- * CPU Test
- *
- * v1.1
- * 
- */
-
-class CPUTest {
-
-	constructor ( opts ) {
-
-		const defaultOptions = {
-			limit: 10,
-			workerPath: 'js/worker.js',
-			verbose: true,
-			callback: null
-		}
-
-		const options = merge( defaultOptions, opts);
+	constructor( callback, options = { timer: 500 } ) {
 
 		// properties
-		window.goodCPU = false;
-		this.time = 10000;
-		
-		// browser capacity check
-		if (!window.Worker || typeof window.Worker === "undefined") {
-		 	console.warn('CPUTest: Web workers are not available.');
+		this.reference 	= performance || Date;
 
-		 	if(options.callback) options.callback();
+		// params
+		this.time 		= 0;
+		this.frames 	= 0;
+		this.startTime 	= this.reference.now();
+		this.prevTime 	= this.reference.now();
 
-		 	return;
-		}
-
-		// options
-		this.callback 	= options.callback;
-		this.verbose 	= options.verbose;
-		this.limit 		= options.limit;
-
-		// binding
-		this.onMessage 	= ::this.onMessage;	
-		this.onError 	= ::this.onError;	
-
-		// worker
-		this.worker = new Worker(options.workerPath);
-		this.worker.addEventListener("message", this.onMessage);
-		this.worker.addEventListener("error", this.onError);
-	}
-
-	/**
-	 * Test run
-	 */
-	run() {
+		this.callback 	= callback;
+		this.options 	= options;
 
 		// security check
-		if(!this.worker) return;
-
-		this.worker.postMessage({
-			id: Date.now(),
-			message: { fn: 'calculate' }
-		});
+		if( typeof this.options.timer !== 'number' || this.options.timer < 1 ) this.options.timer = 500;
 	}
 
 	/**
-	 * Error handling
+	 * Start
+	 * - call it before tested code
 	 */
-	onError( error ) {
-		console.error('CPUTest :: Error:', error);
+	start() {
 
-		if(this.callback) this.callback();
+		this.startTime = this.reference.now();
 	}
 
 	/**
-	 * Test done
+	 * End
+	 * - call it after tested code
 	 */
-	onMessage(e) {
+	end() {
 
-		if(e) this.time = e.data.message.time;
+		this.frames++;
 
-		window.goodCPU = this.time < this.limit;
+        this.time = this.reference.now();
 
-		if(this.verbose) this.logReport();
+        if ( this.time >= this.prevTime + this.options.timer ) {
 
-		if(this.callback) this.callback(this.time);
-		
-		this.dispose();
+            if( this.callback ) this.callback( Math.round( this.frames * 1000 / ( this.time - this.prevTime )) ); // FPS
+
+            this.prevTime = this.time;
+            this.frames = 0;
+        }	
 	}
 
-	/**
-	 * Report
-	 */
-	logReport() {
-
-		console.log(`%cCPU status: ${window.goodCPU ? 'good' : 'not good'} (${this.time}ms)`, 'color:#888');
-	}
-
-
-	/**
-	 * Dispose
-	 */
-	dispose() {	
-
-		this.worker.removeEventListener("message", this.onMessage);
-		this.worker.removeEventListener("error", this.onError);
-  		this.worker.terminate();
-
-		this.worker = null;
-		this.callback = null;
-		this.onMessage = null;
-		this.onError = null;
-  	}
 }
 
-export default CPUTest;
+export default FPSMonitor;

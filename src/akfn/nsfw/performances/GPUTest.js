@@ -32,9 +32,26 @@
  *
  */
 
+import { merge } from 'akfn/nsfw/utils/utils';
+
+/**
+ * GPU Test
+ * WebGL 1
+ * 
+ * http://webglreport.com/
+ *
+ * v1.01
+ */
+
 class GPUTest {
 
-	constructor( verbose = true ) {
+	constructor( opts ) {
+
+		const defaultOptions = {
+			verbose:true
+		};
+
+		const options = merge(defaultOptions, opts);
 
 		const webglVersion = 1;
 
@@ -100,19 +117,28 @@ class GPUTest {
 		this.canvas = null;
 
 		// Global status
-		this.status = true;
+		let status = true;
 
 		// specific tests (samples)
 		const points = this.report.aliasedPointSizeRange[1] > 300;
 
-		if(!points) this.status = false;
+		if(!points) status = false;
+
+		window.goodGPU = status;
 
 		// Logs
-		if(verbose) {
-			console.log('%cWebGL report','background-color:#666666; padding:0px 10px; color:#fff;');
-			console.log(this.report);
-			console.log('GPU status:', this.status ? 'good' : 'not good');
-		}
+		if(options.verbose) this.logReport();
+
+	}
+
+	/**
+	 * Log Report
+	 */
+	logReport() {
+
+		console.log('%cWebGL report','background-color:#888; padding:0px 10px; color:#fff;');
+		console.log(this.report);
+		console.log(`%cGPU status: ${window.goodGPU ? 'good' : 'not good'}`,'color:#888;');
 
 	}
 
