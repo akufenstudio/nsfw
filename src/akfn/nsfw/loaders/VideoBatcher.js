@@ -34,66 +34,110 @@
 
 class VideoBatcher {
 
-	constructor( callback = null, verbose = true ) {
+
+	constructor( options = { verbose: true } ) {
 
 		// bindings
 		this.loaded = ::this.loaded;
+		this.fail 	= ::this.fail;
 
-		this.urls 	= [];
+		// params
+		this.verbose = options.verbose;
+
+		// properties
+		this.items 	= [];
 		this.videos	= [];
-		
-		this.verbose = verbose;
-
-		if(callback) this.callback = callback;
 	}
 
 	/**
-	 * Add
+	 * Add Item url {String}
 	 */
 	add ( url ) {
 
-		this.urls.push(url);
+		this.items.push(url);
 	}
 
 	/**
-	 * Start
+	 * Start Batcher
 	 */
-	start () {
+	start ( callback ) {
 
-		if( this.urls.length < 1 ) {
+		// empty batcher check
+		if( this.items.length < 1 ) {
 			console.warn('VideoBatcher :: No Video to preload');
-			this.callback();
+			if(callback) callback();
 			return;
 		}
 
+		this.items.reverse();
 
-		if (!this.video) {
-			this.video = document.createElement('video');
-			this.video.addEventListener('canplay', this.loaded);
+		this.load();
+
+		// mode: callback
+		if(callback && typeof callback === 'function') {
+
+			this.callback = callback;
+			
+		// mode: promise	
+		} else {
+			return new Promise( (resolve, reject) => {
+
+				this.resolve = resolve;
+
+			});
 		}
+	}
+
+	/**
+	 * Loading
+	 */
+	load() {
+
+		this.video = document.createElement('video');
+		this.video.addEventListener('canplay', this.loaded);
+		this.video.addEventListener('error', this.fail);
 		
-		this.video.src = this.urls[this.urls.length - 1];
+		this.video.src = this.items[this.items.length - 1];
 		this.video.load();
 	}
 
+	/**
+	 * Loaded
+	 */
 	loaded () {
 
-		if(this.verbose) console.log('%cVideoBatcher :: Video loaded : ', 'color:#ffbb6a;', this.urls[this.urls.length - 1]);
+		if(this.verbose) console.log(`%cVideoBatcher :: Video loaded : ${this.items[this.items.length - 1]}`, 'color:#D1BA93;');
+
+		this.video.removeEventListener('canplay', this.loaded);
+		this.video.removeEventListener('error', this.fail);
 
 		this.videos.push(this.video);
 
-		this.urls.pop();
+		this.items.pop();
 
-		if (this.urls.length > 0 )
-			this.start();
+		if (this.items.length > 0 )
+			this.load();
 		else {
 
-			this.videos.reverse();
+			if(this.verbose) console.log('%cVideoBatcher :: Completed', 'color:#D1BA93;');
 
-			if(this.verbose) console.log('%cVideoBatcher :: Completed', 'color:#ffbb6a;');
-			if(this.callback) this.callback( this.videos );
+			if(this.callback)
+				this.callback( this.videos );
+			else 
+				this.resolve( this.videos );
 		}
 
+	}
+
+	/**
+	 * Error
+	 */
+	fail ( error ) {
+
+		if(this.verbose) console.log(`%cVideoBatcher :: Video error : ${this.items[this.items.length - 1]}`, 'color:#D19694;');
+
+		this.items.pop();
+		this.load();
 	}
 
 	/**
@@ -103,7 +147,7 @@ class VideoBatcher {
 
 		this.callback = null;
 
-		this.urls = null;
+		this.items = null;
 		this.videos = null;
 
 		this.video.removeEventListener('canplay', this.loaded);

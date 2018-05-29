@@ -35,66 +35,122 @@
 class ImageBatcher {
 
 
-	constructor( cb = null, verbose = true ) {
+	constructor( options = { verbose: true } ) {
 
+		// binding
+		this.loaded = ::this.loaded;
+		this.fail 	= ::this.fail;
+
+		// params
+		this.verbose = options.verbose;
+
+		// properties
 		this.items = [];
 		this.pics = [];
-		
-		this.verbose = verbose;
-
-		if(cb) this.callback = cb;
-
 	}
 
+	/**
+	 * Add Item url {String}
+	 */
 	add ( url ) {
 
 		this.items.push(url);
 
 	}
 
-	start () {
+	/**
+	 * Start Batcher
+	 * - callback is a function
+	 * - if null, batcher will return a Promise
+	 */
+	start ( callback ) {
 
+		// empty batcher check
 		if( this.items.length < 1 ) {
 			console.warn('ImageBatcher :: No Image to preload');
-			this.callback();
+			if(callback) callback();
 			return;
 		}
 
+		this.items.reverse();
+
+		this.load();
+
+		// mode: callback
+		if(callback && typeof callback === 'function') {
+
+			this.callback = callback;
+			
+		// mode: promise	
+		} else {
+			return new Promise( (resolve, reject) => {
+
+				this.resolve = resolve;
+
+			});
+		}
+
+	}
+
+	/**
+	 * Loading
+	 */
+	load() {
+
 		this.pic = new Image();
 		this.pic.crossOrigin = 'Anonymous';
-		this.pic.onload = this.loaded.bind(this);
-		this.pic.onerror = (err)=>{
-			if(this.verbose) console.log('%cImageBatcher :: Image Error : ', 'color:#ff0000;', this.items[this.items.length - 1]);
-			this.items.pop();
-			this.start();
-		};
+		this.pic.onload = this.loaded;
+		this.pic.onerror = this.fail;
 
 		this.pic.src = this.items[this.items.length - 1];
 	}
 
+	/**
+	 * Loaded
+	 */
 	loaded () {
 
-		if(this.verbose) console.log('%cImageBatcher :: Image loaded : ', 'color:#ffbb6a;', this.items[this.items.length - 1]);
+		if(this.verbose) console.log(`%cImageBatcher :: Image loaded : ${this.items[this.items.length - 1]}`, 'color:#D1BA93;');
 
 		this.pics.push(this.pic);
 
 		this.items.pop();
 
 		if (this.items.length > 0 )
-			this.start();
+			this.load();
 		else {
 
-			this.pics.reverse();
+			if(this.verbose) console.log('%cImageBatcher :: Completed', 'color:#D1BA93;');
 
-			if(this.verbose) console.log('%cImageBatcher :: Completed', 'color:#ffbb6a;');
-			if(this.callback) this.callback( this.pics );
+			if(this.callback)
+				this.callback( this.pics );
+			else 
+				this.resolve( this.pics );
 		}
 
 	}
 
+	/**
+	 * Error
+	 */
+	fail ( error ) {
+
+		if(this.verbose) console.log(`%cImageBatcher :: Image error : ${this.items[this.items.length - 1]}`, 'color:#D19694;');
+
+		this.items.pop();
+		this.load();
+	}
+
+	/**
+	 * Dispose
+	 */
 	dispose () {
 
+		this.loaded = null;
+		this.fail = null;
+
 		this.callback = null;
+		this.resolve = null;
 
 		this.items = null;
 		this.pics = null;

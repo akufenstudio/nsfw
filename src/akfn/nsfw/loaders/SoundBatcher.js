@@ -35,59 +35,107 @@
 class SoundBatcher {
 
 
-	constructor ( callback, verbose = false ) {
+	constructor ( options = { verbose: true } ) {
 
 		// binding
 		this.loaded = ::this.loaded;
+		this.fail 	= ::this.fail;
 
 		// params
-		this.verbose = verbose;
+		this.verbose = options.verbose;
+
+		// properties
 		this.items = [];
-
-		if ( callback && typeof callback === 'function' ) {
-			this.callback = callback;
-		}
-
-		this.loader = new Audio();
-		this.loader.addEventListener('canplaythrough', this.loaded, true);
+		this.sounds = [];
 	}
 
-	addItem ( url ) {
+	/**
+	 * Add Item url {String}
+	 */
+	add ( url ) {
 
 		this.items.push(url);
 	}
 
 	/**
-	 * Start
+	 * Start Batcher
 	 */
-	start () {
+	start ( callback ) {
 
-		if(this.verbose) console.log('SoundBatcher :: Start');
-
-		if ( this.items.length < 1 ) {
-			console.warn('SoundBatcher :: No sound to preload');
+		// empty batcher check
+		if( this.items.length < 1 ) {
+			console.warn('SoundBatcher :: No Sound to preload');
+			if(callback) callback();
 			return;
 		}
+
+		this.items.reverse();
+
+		this.load();
+
+		// mode: callback
+		if(callback && typeof callback === 'function') {
+
+			this.callback = callback;
+			
+		// mode: promise	
+		} else {
+			return new Promise( (resolve, reject) => {
+
+				this.resolve = resolve;
+
+			});
+		}
+	}
+
+	/**
+	 * Loading
+	 */
+	load() {
+
+		this.loader = new Audio();
+		this.loader.addEventListener('canplaythrough', this.loaded);
+		this.loader.addEventListener('error', this.fail);
 
 		this.loader.src = this.items[this.items.length - 1];
 	}
 
+	/**
+	 * Loaded
+	 */
 	loaded () {
 		
-		if(this.verbose) console.log('SoundBatcher :: Sound loaded : ', this.items[this.items.length - 1]);
+		if(this.verbose) console.log(`%cSoundBatcher :: Sound loaded : ${this.items[this.items.length - 1]}`, 'color:#D1BA93;');
+
+		this.loader.removeEventListener('canplaythrough', this.loaded);
+		this.loader.removeEventListener('error', this.fail);
+
+		this.sounds.push(this.loader);
 
 		this.items.pop();
 
 		if ( this.items.length > 0 ) {
-			
-			this.start();
-
+			this.load();
 		} else {
 
-			if ( this.callback ) this.callback();  
+			if(this.verbose) console.log('%cSoundBatcher :: Completed', 'color:#D1BA93;');
 
-			this.dispose();
+			if(this.callback)
+				this.callback( this.sounds );
+			else 
+				this.resolve( this.sounds );
 		}
+	}
+
+	/**
+	 * Error
+	 */
+	fail ( error ) {
+
+		if(this.verbose) console.log(`%cSoundBatcher :: Sound error : ${this.items[this.items.length - 1]}`, 'color:#D19694;');
+
+		this.items.pop();
+		this.load();
 	}
 
 	/**
@@ -95,12 +143,16 @@ class SoundBatcher {
 	 */
 	dispose () {
 
-		this.loader.removeEventListener('canplaythrough', this.loaded, true);
-
 		this.loaded = null;
-		this.loader = null;
+		this.fail = null;
+
 		this.items = null;
+		this.sounds = null;
+
 		this.callback = null;
+		this.resolve = null;
+
+		this.loader = null;
 	}
 
 }
