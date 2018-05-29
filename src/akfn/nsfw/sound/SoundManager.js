@@ -47,7 +47,7 @@ import SoundBatcher from '../loaders/SoundBatcher';
   * SOUND
   * MANAGER
   *
-  * v1.01
+  * v1.02
   */
 
 
@@ -59,29 +59,19 @@ class SoundManager {
 
 	constructor({ path = '', preload = false, crossfadeTime = 0.5, sounds = [], verbose = false }) {
 
-		console.log('SoundManager :: constructor');
-
+		// options
 		this.path = path;
 		this.preload = preload;
 		this.crossfadeTime = crossfadeTime;
 		this.verbose = verbose;
 
+		// properties
 		this.channels = [];
 		this.sounds = {};
-		this.key = 'isMuted';
 
-		const { Howl, Howler } = require('howler');
-
-		window.Howl = Howl;
-		window.Howler = Howler;
-
-		// create sounds
-		for ( let i = 0; i < sounds.length; i++ ) {
-			const sound = sounds[i];
-			this.add(sound);
-		}
-
-		const status = window.localStorage ? JSON.parse(window.localStorage.getItem(this.key)) : false;
+		// params
+		const key = 'AKFNSMisMuted';
+		const status = window.localStorage ? JSON.parse(window.localStorage.getItem(key)) : false;
 
 		Object.defineProperty(this, 'isMuted', {
 			get: () => { 
@@ -91,16 +81,29 @@ class SoundManager {
 				window.isMuted = isMuted;
 
 				if ( window.localStorage ) {
-					window.localStorage.setItem(this.key, isMuted);
+					window.localStorage.setItem(key, isMuted);
 				}
 			},
 			enumerable: true,
 			configurable: true
 		});
 
-		this.isMuted = status;
+		this.isMuted = typeof status === 'boolean' ? status : false;
 
 		if ( this.verbose ) console.log(`%cSoundManager :: isMuted : ${this.isMuted}`, `color:#CCC;`);
+
+
+		// Howler
+		const { Howl, Howler } = require('howler');
+
+		window.Howl = Howl;
+		window.Howler = Howler;
+
+		// create sounds
+		for ( let i = 0; i < sounds.length; i++ ) {
+			this.add( sounds[i] );
+		}
+
 		
 
 		/**
@@ -109,14 +112,14 @@ class SoundManager {
 		 */
 
 		if ( preload ) {
-			const batcher = new SoundBatcher();
+			const batcher = new SoundBatcher({verbose:verbose});
 			const keys = Object.keys(this.sounds);
 
 			for ( let i = 0; i < keys.length; i++ ) {
 				const key = keys[i];
 				const sound = this.sounds[key];
 
-				batcher.addItem(sound.src);
+				batcher.add(sound.src);
 			}
 
 			batcher.start();
@@ -175,7 +178,7 @@ class SoundManager {
 		const sound = this.sounds[id];
 
 		if ( !sound ) {
-			console.warn(`Available sounds`, this.sounds);
+			console.warn(`SoundManager :: Available sounds`, this.sounds);
 			throw new Error(`SoundManager :: Sound ${id} not found.`);
 		}
 
@@ -250,7 +253,7 @@ class SoundManager {
 
 		this.sounds[sound.id] = new Sound({
 			...sound,
-			src: `${this.path}/${sound.src}`,
+			src: this.path === '' ? sound.src : `${this.path}/${sound.src}`,
 		});
 	}
 
@@ -270,7 +273,8 @@ class SoundManager {
 	 * Visibility
 	 */
 	handleVisibility ( isVisible ) {
-		console.log('Visibility :: ', document.hidden);
+		
+		if(this.verbose) console.log('Visibility :: ', document.hidden);
 
 		// document.hidden is true on load, so it tries to mute on start 樂
 		if ( this.isMuted ) {
@@ -283,6 +287,7 @@ class SoundManager {
 		//     this.handleMute();
 		// }
 	}
+
 
 }
 

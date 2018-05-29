@@ -35,8 +35,12 @@
 class SoundChannel {
 
 	constructor () {
+
+		// properties
 		this.id = '';
 		this.howl = {};
+
+		// params
 		this.isPlaying = false;
 		this.isHowl = false;
 		this.isMuted = false;
@@ -48,6 +52,11 @@ class SoundChannel {
 		if(this.verbose) document.body.appendChild(this.audio);
 	}
 
+	/**
+	 * Play Channel
+	 * @param  {Sound}  sound 		Sound object
+	 * @param  {Boolean} isMuted 	SoundManager mute status
+	 */
 	play ( sound, isMuted ) {
 		const { id, src, loop, volume } = sound;
 
@@ -68,18 +77,20 @@ class SoundChannel {
 			const sameSource = this.howl._src === `${window.location.origin}${src}` || this.howl._src === src;
 
 			if ( !sameSource ) {
-		        this.isHowl = true;
-		        this.isPlaying = true;
+				this.isHowl = true;
+				this.isPlaying = true;
 				this.howl = new Howl({
-		            src: src,
-		            autoplay: true,
-		            loop: true,
-		        });
+					src: src,
+					autoplay: true,
+					loop: true,
+				});
 			}
 
 			this.howl._volume = isMuted ? 0 : volume;
 			this.howl.play();
+
 		} else {
+
 			const sameSource = this.audio.src === `${window.location.origin}${src}` || this.audio.src === src;
 
 			if ( !sameSource ) {
@@ -94,22 +105,34 @@ class SoundChannel {
 		}
 	}
 
+	/**
+	 * Stop Channel
+	 */
 	stop () {
-		console.log('SoundChannel :: stop', this.id, this.isHowl);
+
+		if(this.verbose) console.log(`%cSoundChannel :: stop :: ${id}`, `color:#ddd;`);
 
 		if ( this.isHowl ) {
 			this.howl.pause();
 		} else {
+			this.audio.classList.remove('playing');
 			this.audio.pause();
 		}
 
 		this.clear();
 	}
 
+	/**
+	 * Fade Channel
+	 * @param  {Number} volume   	Between 0 and 1
+	 * @param  {Number} duration 	In seconds
+	 */
 	fade ( volume, duration ) {
 		const track = this.getTrack();
 
 		TweenMax.to(track, duration, { volume: volume });
+
+		if(this.verbose) this.audio.setAttribute('data-volume', volume);
 	}
 
 	onEnd () {
@@ -130,6 +153,10 @@ class SoundChannel {
 		return this.audio;
 	}
 
+	/**
+	 * Volume Channel
+	 * @param  {Number} value 		Volume between 0 and 1
+	 */
 	volume ( value ) {
 		this.sound.volume = value;
 
@@ -140,9 +167,16 @@ class SoundChannel {
 				this.audio.volume = this.sound.volume;
 			}
 		}
+
+		if(this.verbose) this.audio.setAttribute('data-volume', value);
 	}
 
+	/**
+	 * Mute Channel
+	 */
 	mute () {
+
+		//security check
 		if ( !this.isPlaying ) return;
 		this.isMuted = true;
 
@@ -152,10 +186,15 @@ class SoundChannel {
 			this.audio.volume = 0;
 		}
 
-		if(this.verbose) console.log('SoundChannel :: Mute', this.id);
+		if(this.verbose) console.log(`%cSoundChannel :: Mute : ${this.id}`, 'color:#f4e0c8');
 	}
 
+	/**
+	 * Unmute Channel
+	 */
 	unmute () {
+
+		//security check
 		if ( !this.isPlaying ) return;
 		this.isMuted = false;
 
@@ -165,7 +204,7 @@ class SoundChannel {
 			this.audio.volume = this.sound.volume;
 		}
 
-		if(this.verbose) console.log('SoundChannel :: UnMute', this.id);
+		if(this.verbose) console.log(`%cSoundChannel :: UnMute : ${this.id}`, 'color:#f4e0c8');
 	}
 
 }
