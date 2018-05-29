@@ -61,10 +61,8 @@ class EventsManager {
 
 		if(!event || event === '')
 			console.warn('EventsManager :: EMPTY EVENT ::', event);
-		else
-			console.log('EventsManager :: ON ::', event);
-
-		if(!EventsManager.eventsList) EventsManager.eventsList = {};
+		else if ( EventsManager.debug )
+			console.log(`%cEventsManager :: ON :: ${event}`,'color:#BBB;');
 
 		if(!EventsManager.eventsList[event]) EventsManager.eventsList[event] = []; // improve (._.)
 
@@ -72,6 +70,11 @@ class EventsManager {
 
 	}
 
+	/**
+	 * Once
+	 * @param  {String}   event name
+	 * @param  {Function} callback function
+	 */
 	static once( event, fn ) {
 
 		const listener = ( data ) =>{
@@ -85,6 +88,11 @@ class EventsManager {
 	}
 
 
+	/**
+	 * Off 
+	 * @param  {String}   event name
+	 * @param  {Function} callback function
+	 */
 	static off ( event, fn ) {
 		
 		const listeners = EventsManager.eventsList[event];
@@ -95,9 +103,11 @@ class EventsManager {
 		}
 
 		if(!fn) {
-			console.warn('EventsManager :: Off :: Callback is undefined');
+			console.warn('EventsManager :: Off :: Callback is undefined', event);
 			return;
 		}
+
+		if( EventsManager.debug ) console.log(`%cEventsManager :: OFF :: ${event}`,'color:#BBB;');
 
 		const targetEvents = [];
 
@@ -105,7 +115,7 @@ class EventsManager {
 
 			const target = listeners[i];
 
-			if(target.fn !== fn && target.fn._ !== fn ) { // (.__.) ??
+			if(target.fn !== fn && target.fn._ !== fn ) { // (.__.)
 				targetEvents.push(target);
 			}
 		}
@@ -117,6 +127,22 @@ class EventsManager {
 			delete EventsManager.eventsList[event];
 
 	}
+
+	/**
+	 * Verbose
+	 * @param  {Boolean}   debug status
+	 */
+	static verbose ( status ) {
+
+		EventsManager.debug = status;
+	}
+
 }
+
+/**
+ * Properties (HBD Raph!)
+ */
+EventsManager.eventsList = {};
+EventsManager.debug = false;
 
 export default EventsManager;

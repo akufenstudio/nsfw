@@ -35,16 +35,19 @@
 import SoundManagerEvents from 'akfn/nsfw/sound/events';
 import GoogleMapEvents from 'akfn/nsfw/geo/gmaps/events';
 import VimeoPlayerEvents from 'akfn/nsfw/video/vimeo/events';
+import RouterEvents from 'akfn/nsfw/net/router/events';
 
 /**
- * N * S * F * W
  * 
- * Events
+ * NSFW Core Events
  *
- * v1.1
+ * v1.2
  */
 
 const NSFWEvents = {
+
+	// Router
+	Router: RouterEvents,
 
 	// SoundManager
 	Sound: SoundManagerEvents,
