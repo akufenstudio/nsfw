@@ -32,10 +32,24 @@
  *
  */
 
+import { merge } from 'akfn/nsfw/utils/utils';
+
+/**
+ * Smooth ScrollManager
+ *
+ * Wrap of 
+ * https://github.com/idiotWu/smooth-scrollbar (7.4.1)
+ *
+ * Library must be included in vendors.
+ *
+ * v1.05
+ */
+
 class SmoothScrollManager {
 
 	constructor ( options ) {
 
+		// binding
 		this.scroll = ::this.scroll;
 
 		if(!Scrollbar) {
@@ -44,7 +58,12 @@ class SmoothScrollManager {
 		}
 
 		// elements
-		this.root = document.querySelector('#root');
+		this.root = options.container;
+
+		if(!this.root) {
+			console.error('SmoothScrollManager :: #root element needed.');
+			return;
+		}
 
 		this.views = [];
 	}
@@ -65,14 +84,21 @@ class SmoothScrollManager {
 	}
 	
 
-	static start( options = {} ) {
+	static start( opts ) {
 
 		window.currentScrollTop = 0;
 
-		SmoothScrollManager.instance = new SmoothScrollManager();	
+		// options
+		const defaultOptions = {
+			container: document.querySelector('#root'),
+			alwaysShowTracks: true,
+			syncCallbacks: true
+		};
 
-		options.syncCallbacks = true;
-		options.alwaysShowTracks = false;
+		const options = merge(defaultOptions, opts);
+
+		SmoothScrollManager.instance = new SmoothScrollManager(options);	
+
 		SmoothScrollManager.init( options );	
 	}
 
@@ -80,8 +106,6 @@ class SmoothScrollManager {
 	 * Smooth scroll
 	 */
 	scroll ( status ) {
-
-		//console.log(status);
 
 		window.currentScrollTop = status.offset.y;
 		window.currentScrollDirection = status.direction.y;
@@ -93,11 +117,15 @@ class SmoothScrollManager {
 	 * Bind
 	 * Add view
 	 */
-	static bind( id, fn) {
+	static bind(id, fn) {
 
 		SmoothScrollManager.instance.views.push({id:id,fn:fn});
 	}
 
+	/**
+	 * Unbind
+	 * Remove view
+	 */
 	static unbind(id) {
 
 		const instance = SmoothScrollManager.instance;

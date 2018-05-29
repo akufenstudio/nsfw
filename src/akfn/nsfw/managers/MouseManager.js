@@ -35,7 +35,6 @@
 import Vector2 from '../math/Vector2';
 
 /**
- * N * S * F * W
  * 
  * Mouse Manager
  *

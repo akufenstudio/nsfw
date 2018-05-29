@@ -35,7 +35,6 @@
 import { getScrollTop } from '../utils/scroll';
 
 /**
- * N * S * F * W
  * 
  * Scroll Manager
  *

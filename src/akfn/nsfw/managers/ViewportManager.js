@@ -32,110 +32,82 @@
  *
  */
 
-class RafManager {
-	
+class ViewportManager {
+
+
 	constructor() {
 
-		// binding
+		// bindings
 		this.update = ::this.update;
 
-		// params
-		this.binders = [];
-		this.raf = null;
+		// properties
+		this.views = {};
+		this.watchers = {};
 
-		this.now = Date.now();
-		this.time = this.now;
-		this.deltaTime = 0;
+		// polyfill for IE & Safari (._.)
+		require('intersection-observer');
 	}
 
-	/* Start */
-	static start() {
+	static start () {
 
-		if(!RafManager.INSTANCE) RafManager.INSTANCE = new RafManager();
+		if(!ViewportManager.instance) ViewportManager.instance = new ViewportManager();
 
-		RafManager.INSTANCE.update();
 	}
 
-	/* Stop */
-	static stop() {
+	/**
+	 * Update
+	 */
+	update( entries ) {
 
-		window.cancelAnimationFrame( RafManager.INSTANCE.raf );
-	}
+		for( let i = 0, view; i < entries.length; i++) {
 
-	/* Update */
-	update() {
+			view = this.views[ entries[i].target.dataset['intersectionId'] ];
 
-		// time stuff
-		this.now = Date.now();
-		this.deltaTime = this.now - this.time;
-		this.time = this.now;	
-
-		for(let i=0; i < this.binders.length; i++) this.binders[i].fn( this.deltaTime );
-
-		this.raf = window.requestAnimationFrame( this.update );
+			if( view ) view.update( entries[i] );
+		}
 	}
 
 	/**
 	 * Bind
-	 * @param  {String}   id [description]
-	 * @param  {Function} fn [description]
+	 * @param  {String} 			id      
+	 * @param  {IntersectionView} 	element 
 	 */
-	static bind(id, fn) {
+	static bind ( id, element ) {
 
-		const _this = RafManager.INSTANCE;
+		const instance = ViewportManager.instance;
+		const watchers = instance.watchers;
 
-		// id type check
-		if( typeof id !== 'string' ) {
-			console.error('RafManager :: Bind :: Invalid ID', id);
-			return;
+		instance.views[id] = element;
+		
+		if(element) {
+
+			const ratio = String(element.options.ratio);
+
+			// check if existing watcher fits wanted ratio
+			if(!watchers[ratio]) {
+				watchers[ratio] = new IntersectionObserver( instance.update, { threshold:[0,element.options.ratio] } );
+			} 
+
+			watchers[ratio].observe(element.view);
 		}
 
-		// fn type check
-		if( typeof fn !== 'function' ) {
-			console.error('RafManager :: Bind :: Invalid Function', fn);
-			return;
-		}
-
-		// use id check
-		for( let i = 0; i < _this.binders.length; i++ ) {
-
-			const b = _this.binders[i];
-
-			if(b.id === id) {
-				console.warn('RafManager :: Bind :: ID already used !', id);
-				return;
-			}
-		}
-
-		RafManager.INSTANCE.binders.push({id:id,fn:fn});
 	}
 
 	/**
 	 * Unbind
-	 * @param  {String}   id [description]
+	 * @param  {String} 			id      
+	 * @param  {IntersectionView} 	element 
 	 */
-	static unbind(id) {
+	static unbind ( id, element ) {
 
-		const _this = RafManager.INSTANCE;
+		const instance 	= ViewportManager.instance;
+		const watcher 	= instance.watchers[String(element.options.ratio)];
 
-		for(let i=0; i < _this.binders.length; i++)
-		{
-			if(_this.binders[i].id === id)
-			{
-				_this.binders.splice(i, 1);
-				break;
-			}
-		}
-	}
+		delete instance.views[id];
 
-	/**
-	 * Debug
-	 */
-	static debug () {
-
-		console.table( RafManager.INSTANCE.binders );
+		if(element) watcher.unobserve(element.view);
 	}
 
 }
 
-export default RafManager;
+export default ViewportManager;
