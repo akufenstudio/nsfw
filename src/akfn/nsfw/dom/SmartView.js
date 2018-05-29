@@ -32,50 +32,62 @@
  *
  */
 
+import ViewportManager from 'akfn/nsfw/managers/ViewportManager';
+
+/**
+ * 
+ * Smart View
+ *
+ * v2.0
+ */
+
 class SmartView {
 
-	constructor ( id, view ) {
+	constructor ( id, view, options = { ratio: 0 } ) {
 
-		// security checks
-		if(window.currentScrollTop !== 0 && !window.currentScrollTop) {
-			console.error('SmartView :: ScrollManager should be already started.');
+		if(!id || id === '') {
+			console.error('SmartView :: Invalid ID');
+			return;
 		}
 
 		if(!view) {
 			console.error('SmartView :: View is undefined');
+			return;
 		}
 
+		// properties
 		this.id = id;
 		this.view = view;
+		this.options = options;
 
-		this.visible 	= false;
+		// security check
+		if( !this.options.ratio || typeof this.options.ratio !== 'number' ) this.options.ratio = 0;
+
+		// settings
 		this.visibility = false;
+		this.visible = false;
 
-		this.offsetTop 		= 0;
-		this.offsetBottom 	= 0;
-		this.scrollTop 		= 0;
-		this.triggerRatio 	= 1;
-		
-		this.locate();
+		this.view.dataset.intersectionId = id;
+
+		ViewportManager.bind(id, this);
 	}
 
 	/**
-	 * Check if visible in viewport
+	 * Updating status by ViewportManager
 	 */
-	check () {
-
-		this.visibility = this.offsetBottom > window.currentScrollTop && this.offsetTop < window.currentScrollTop + window.innerHeight * this.triggerRatio;
+	update ( status ) {
+		
+		this.visibility = status.isIntersecting;
 	}
 
 	/**
 	 *  Save the offset top position
-	 *  (should be called on «resize»)
+	 *  (should be called on «resize» if needed)
 	 */
 	locate () {
 
 		this.offsetTop 		= window.currentScrollTop + this.view.getBoundingClientRect().top;
 		this.offsetBottom 	= this.offsetTop + this.view.offsetHeight;
-	
 	}
 
 	/**
@@ -83,13 +95,11 @@ class SmartView {
 	 */
 	dispose() {
 
+		ViewportManager.unbind(this.id, this);
+
 		this.view = null;
 
-		this.visible = false;
 		this.visibility = false;
-
-		this.offsetTop = 0;
-		this.offsetBottom = 0;
 	}
 
 }

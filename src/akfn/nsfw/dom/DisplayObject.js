@@ -37,17 +37,20 @@ import Vector3 from '../math/Vector3';
 
 /**
  * DisplayObject
+ *
+ * v1.05
  */
 
 class DisplayObject {
 	
-	constructor( view ) {
+	constructor( view, options = { position:'static' } ) {
 
 		// bindings
 		this.click 	= ::this.click;
 		this.over 	= ::this.over;
 		this.out 	= ::this.out;
 
+		// security check
 		if(!view) {
 
 			/**
@@ -61,17 +64,18 @@ class DisplayObject {
 
 		}
 
+		// view
 		this.view = view;
 
-		// security check
-		this.view.style.position = 'absolute';
+		// position
+		if( options.position === 'absolute' ) this.view.style.position = 'absolute';
 
+		// settings
 		this.position = new Vector3();
 		this.rotation = new Vector3();
-		this.scale = new Vector2(1, 1);
+		this.scale = new Vector2(1,1);
 
 		this.alpha = 1;
-
 	}
 
 	/**

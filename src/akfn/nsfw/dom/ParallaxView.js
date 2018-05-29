@@ -35,23 +35,22 @@
 import RafManager from 'akfn/nsfw/managers/RafManager';
 
 import DisplayObject from 'akfn/nsfw/dom/DisplayObject';
-import SmartView from 'akfn/nsfw/dom//SmartView';
+import SmartView from 'akfn/nsfw/dom/SmartView';
 
 import Vector2 from 'akfn/nsfw/math/Vector2';
 
 /**
- * N * S * F * W
  * 
  * Parallax View
  *
- * v1.0
+ * v2.0
  */
 
 class ParallaxView extends SmartView {
 	
 	constructor(id, view, options = {}) {
 
-		const displayObject = new DisplayObject( view );
+		const displayObject = new DisplayObject( view, options );
 
 		super(id, displayObject.view);
 
@@ -65,10 +64,12 @@ class ParallaxView extends SmartView {
 
 		// options
 		const { amplitude, smooth, depth } = options;
-		this.options = { amplitude: amplitude || 100, smooth: smooth || .2, depth: depth || 1 };
+		this.options = { amplitude: amplitude || 200, smooth: smooth || .1, depth: depth || 1 };
+
+		this.locate();
 
 		// bindings
-		RafManager.bind( this.id, ::this.render);
+		RafManager.bind( this.id, ::this.render );
 	}
 
 	/**
@@ -94,20 +95,9 @@ class ParallaxView extends SmartView {
 	 */
 	render() {
 
-		super.check(); // (see SmartView)
-
 		this.parallax();
 
 		this.displayObject.render();
-	}
-
-
-	/** 
-	 * Resize
-	 */
-	resize() {
-
-		this.locate();
 	}
 
 	/**
@@ -115,7 +105,7 @@ class ParallaxView extends SmartView {
 	 */
 	dispose(){
 
-		RafManager.unbind( this.id);
+		RafManager.unbind( this.id );
 
 		super.dispose();
 	}

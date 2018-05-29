@@ -32,16 +32,13 @@
  *
  */
 
-import SmartView from './SmartView';
-import RafManager from 'akfn/nsfw/managers/RafManager';
-import SmoothScrollManager from 'akfn/nsfw/managers/SmoothScrollManager';
+import SmartView from 'akfn/nsfw/dom/SmartView';
 
 /**
- * N * S * F * W
  * 
  * Animated View
  *
- * v1.1
+ * v2.0
  */
 
 class AnimatedView extends SmartView {
@@ -49,25 +46,14 @@ class AnimatedView extends SmartView {
 	constructor(id, view, options = {}) {
 
 		super(id, view);
-
-		this.id = id;
-		this.options = options;
-
-		if(options.smoothScroll) // lighter than RAF
-			SmoothScrollManager.bind(this.id, ::this.check);
-		else
-			RafManager.bind(this.id, ::this.check);
-
-		this.locate();
 	}
 
 	/**
-	 * Check
-	 * (RAF/SmoothScroll)
+	 * Update
 	 */
-	check() {
+	update( status ) {
 
-		super.check(); // (see SmartView)
+		super.update( status ); // (see SmartView)
 
 		if( this.visibility && !this.visible )
 			this.display();
@@ -82,7 +68,7 @@ class AnimatedView extends SmartView {
 	 */
 	display() {
 
-		this.visible = true;
+		this.visible = true;			
 	}
 
 	/**
@@ -93,33 +79,6 @@ class AnimatedView extends SmartView {
 
 		this.visible = false;
 	}
-
-	/**
-	 * Resize
-	 * Locate your view in document
-	 */
-	resize () {
-
-		this.locate();
-	}
-
-
-	/**
-	 * Dispose
-	 */
-	dispose() {
-
-		if(this.options.smoothScroll)
-			SmoothScrollManager.unbind( this.id );
-		else
-			RafManager.unbind( this.id );
-
-		this.id = null;
-		this.options = null;
-
-		super.dispose();
-	}
-
 }
 
 export default AnimatedView;

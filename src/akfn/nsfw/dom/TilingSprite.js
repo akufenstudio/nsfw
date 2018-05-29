@@ -34,6 +34,13 @@
 
 import { merge } from 'akfn/nsfw/utils/utils';
 
+/**
+ * Tiling Sprite
+ *
+ * v1.0
+ */
+
+
 class TilingSprite {
 
     constructor ( sprite = '', frames, view, options = {} ) {
