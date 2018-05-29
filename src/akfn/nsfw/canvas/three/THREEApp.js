@@ -55,6 +55,13 @@ const defaults = {
     verbose: false,
 };  
 
+/**
+ * ThreeJS App
+ *
+ * v1.0
+ */
+
+
 class THREEApp {
 
     constructor ( opts = {} ) {

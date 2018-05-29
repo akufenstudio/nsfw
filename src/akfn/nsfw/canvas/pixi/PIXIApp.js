@@ -46,6 +46,13 @@ const defaults = {
     verbose: false,
 };
 
+/**
+ * PIXI App
+ *
+ * v1.0
+ */
+
+
 class PIXIApp {
 
     constructor ( opts = {} ) {
