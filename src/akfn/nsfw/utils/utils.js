@@ -74,10 +74,10 @@ export function shuffleArray(o) {
 }
 
 /**
-* Return a clamped value between two bounds
-*
-* @return {number} clamped value
-*/
+ * Return a clamped value between two bounds
+ *
+ * @return {number} clamped value
+ */
 export function clamp ( value, min, max ) {
     if ( value < min ) {
         return min; 
@@ -90,10 +90,20 @@ export function clamp ( value, min, max ) {
     return value;
 };
 
+/**
+ * TODO!
+ * @param  {Array}  as [description]
+ * @return {[type]}    [description]
+ */
 export function removeNil ( as = [] ) {
     return as.filter(a => a != null);
 }
 
+/**
+ * TODO!
+ * @param  {...[type]} args [description]
+ * @return {[type]}         [description]
+ */
 export function merge (...args) {
     const filtered = removeNil(args);
     
@@ -116,4 +126,12 @@ export function merge (...args) {
         
         return acc;
     }, {});
+}
+
+/**
+ * Generate an unique ID
+ * @return {String}
+ */
+export function getUniqueID () {
+    return '_' + Math.random().toString(36).substr(2, 9);
 }

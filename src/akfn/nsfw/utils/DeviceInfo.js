@@ -32,26 +32,49 @@
  *
  */
 
+import GPUTest from 'akfn/nsfw/performances/GPUTest';
+import CPUTest from 'akfn/nsfw/performances/CPUTest';
+
+import { merge } from 'akfn/nsfw/utils/utils';
+
 /**
- * DEVICEINFO
+ * Device Info
  *
- * v1.0
+ * v1.1
  */
 
 class DeviceInfo {
 
 
-	static check() {
 
-		const MobileDetect = require('mobile-detect');
-    	const md = new MobileDetect(window.navigator.userAgent);
+	static check( opts ) {
+
+		if(!DeviceInfo.instance) DeviceInfo.instance = new DeviceInfo( opts );
+
+	}
+
+	constructor( opts ) {
+
+		// options
+		const defaultOptions = {
+			verbose: true,
+			cpu:false,
+			gpu:false,
+			callback:null
+		};
+
+		this.options = merge(defaultOptions,opts);
 
 		// Device detection
+		const MobileDetect = require('mobile-detect');
+		const md = new MobileDetect(window.navigator.userAgent);
+		
 		window.isMobile = md.phone() !== null;
 		window.isTablet = md.tablet() !== null;
 		window.isDesktop = !window.isTablet && !window.isMobile;
 
-		document.body.classList.add( window.isMobile ? 'mobile' : window.isTablet ? 'tablet' : 'desktop' );
+		this.device = window.isMobile ? 'mobile' : window.isTablet ? 'tablet' : 'desktop';
+		document.body.classList.add( this.device );
 
 		// Fastlick
 		if(!window.isDesktop){
@@ -62,25 +85,60 @@ class DeviceInfo {
 		// Browsers
 		const nua = window.navigator.userAgent.toLowerCase();
 
-		window.isIE       = DeviceInfo.getInternetExplorerVersion() !== -1;
-      	window.isOpera    = ( nua.indexOf("opr/") > -1 );
-      	window.isChrome   = !window.isOpera && ( nua.indexOf("chrome") > -1 );
-      	window.isSafari   = !window.isOpera && !window.isChrome && ( nua.indexOf("safari") > -1 );
-      	window.isFirefox  = ( nua.indexOf("firefox") > -1 );
-      	window.isEdge  	  = nua.indexOf("edge") > -1;
+		window.isIE       = this.getInternetExplorerVersion() !== -1;
+		window.isOpera    = ( nua.indexOf("opr/") > -1 );
+		window.isChrome   = !window.isOpera && ( nua.indexOf("chrome") > -1 || nua.indexOf("crios") > -1 );
+		window.isSafari   = !window.isOpera && !window.isChrome && ( nua.indexOf("safari") > -1 );
+		window.isFirefox  = ( nua.indexOf("firefox") > -1 );
+		window.isEdge  	  = nua.indexOf("edge") > -1;
 
-      	// webGL
-      	window.isWebGL = DeviceInfo.webGLAvailability();
+		this.browser = this.getBrowser();
+		document.body.classList.add(this.browser);
 
-      	// Retards
-      	if (window.isIE)
-      		document.body.classList.add('ie');
-      	else if (window.isSafari)
-      		document.body.classList.add('safari');
+		// webGL
+		window.isWebGL = this.webGLAvailability();
+
+		// GPU
+		if(window.isWebGL && this.options.gpu) this.gpu = new GPUTest({verbose:false});	
+
+		// CPU
+		if(this.options.cpu) {
+			this.cpu = new CPUTest({verbose:false, callback: ::this.report});	
+			this.cpu.run();
+		}
+
+		// Report
+		if(!this.options.cpu && this.options.verbose) this.report();
 
 	}
 
-    static getInternetExplorerVersion () {
+
+	/**
+	 * Report
+	 */
+	report() {
+
+		if(!this.options.verbose) return;
+
+		console.groupCollapsed('Device Info');
+
+		console.log('Device: ', this.device);
+		console.log('Browser: ', this.browser);
+		console.log('WebGL: ', window.isWebGL);
+
+		if(this.gpu) this.gpu.logReport();
+		if(this.cpu) this.cpu.logReport();
+
+		console.groupEnd();
+
+		if(this.options.callback) this.options.callback();
+	}
+
+	/**
+	 * Get Internet Explorer Version
+	 * @return {Number}
+	 */
+	getInternetExplorerVersion () {
 
 		let rv = -1;
 		let re = null;
@@ -100,10 +158,30 @@ class DeviceInfo {
 		return rv;
 	}
 
-	static webGLAvailability() {
+	/**
+	 * Get Browser
+	 * @return {String}
+	 */
+	getBrowser() {
+
+		const browsers = {'ie':window.isIE, 'opera':window.isOpera, 'chrome':window.isChrome, 'safari':window.isSafari, 'firefox':window.isFirefox, 'edge':window.isEdge};
+
+		for( let browser in browsers ) {
+			if(Boolean(browsers[browser])) return browser;
+		}
+
+		return 'unknown';
+	}
+
+	/**
+	 * WebGL
+	 * @return {Boolean}
+	 */
+	webGLAvailability() {
 
 		try { const canvas = document.createElement( 'canvas' ); return !! ( window.WebGLRenderingContext && ( canvas.getContext( 'webgl' ) || canvas.getContext( 'experimental-webgl' ) ) ); } catch ( e ) { return false; };
 	}
 }
+
 
 export default DeviceInfo;
