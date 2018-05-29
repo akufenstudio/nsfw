@@ -38,8 +38,7 @@ import BarbaController from './BarbaController';
 
 /**
  * BARBA
- * PAGE
- * BASE
+ * PAGEBASE
  *
  * v1.0
  */
