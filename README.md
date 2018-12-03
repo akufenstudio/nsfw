@@ -1,4 +1,4 @@
-# Not Safe FrameWork by [Akufen](http://akufen.ca)
+# Not Safe FrameWork by [Akufen](https://akufen.ca)
 
 `NSFW` is a framework dedicated to interactive and creative front-end developpment.
 
