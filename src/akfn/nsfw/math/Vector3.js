@@ -10,7 +10,7 @@
  *  \__|  \__|  \______/  \__|       \__/     \__|      \__/            \__|  \__| \__|  \__| \__|       \__|  \__|
  * 
  *
- * Copyright (c) 2016-present Akufen - AKFN - <http://akufen.ca>
+ * Copyright (c) 2016-present Akufen - AKFN - <https://akufen.ca>
  *
  * Released under the MIT License.
  * 
@@ -32,7 +32,7 @@
  *
  */
 
-/Users/romain/Sites/nsfw/_temp/math/Vector3.jsclass Vector3 {
+class Vector3 {
 
     constructor ( x = 0, y = 0, z = 0 ) {
         this.x = x;

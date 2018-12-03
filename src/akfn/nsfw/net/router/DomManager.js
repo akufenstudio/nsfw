@@ -10,7 +10,7 @@
  *  \__|  \__|  \______/  \__|       \__/     \__|      \__/            \__|  \__| \__|  \__| \__|       \__|  \__|
  * 
  *
- * Copyright (c) 2016-present Akufen - AKFN - <http://akufen.ca>
+ * Copyright (c) 2016-present Akufen - AKFN - <https://akufen.ca>
  *
  * Released under the MIT License.
  * 
@@ -32,7 +32,7 @@
  *
  */
 
-/Users/romain/Sites/nsfw/_temp/net/router/DomManager.jsimport NSFWEvents from 'akfn/nsfw/events/NSFWEvents';
+import NSFWEvents from 'akfn/nsfw/events/NSFWEvents';
 import EventsManager from 'akfn/nsfw/events/EventsManager';
 
 /**

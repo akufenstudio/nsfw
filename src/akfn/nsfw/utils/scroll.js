@@ -10,7 +10,7 @@
  *  \__|  \__|  \______/  \__|       \__/     \__|      \__/            \__|  \__| \__|  \__| \__|       \__|  \__|
  * 
  *
- * Copyright (c) 2016-present Akufen - AKFN - <http://akufen.ca>
+ * Copyright (c) 2016-present Akufen - AKFN - <https://akufen.ca>
  *
  * Released under the MIT License.
  * 
@@ -32,7 +32,7 @@
  *
  */
 
-/Users/romain/Sites/nsfw/_temp/utils/scroll.jsexport function getScrollTop() {
+export function getScrollTop() {
     return (window.pageYOffset || document.documentElement.scrollTop) - (document.documentElement.clientTop || 0);
 }
 

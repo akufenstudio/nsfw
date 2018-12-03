@@ -10,7 +10,7 @@
  *  \__|  \__|  \______/  \__|       \__/     \__|      \__/            \__|  \__| \__|  \__| \__|       \__|  \__|
  * 
  *
- * Copyright (c) 2016-present Akufen - AKFN - <http://akufen.ca>
+ * Copyright (c) 2016-present Akufen - AKFN - <https://akufen.ca>
  *
  * Released under the MIT License.
  * 
@@ -32,7 +32,7 @@
  *
  */
 
-/Users/romain/Sites/nsfw/_temp/events/NSFWEvents.jsimport SoundManagerEvents from 'akfn/nsfw/sound/events';
+import SoundManagerEvents from 'akfn/nsfw/sound/events';
 import GoogleMapEvents from 'akfn/nsfw/geo/gmaps/events';
 import VimeoPlayerEvents from 'akfn/nsfw/video/vimeo/events';
 import YoutubePlayerEvents from 'akfn/nsfw/video/youtube/events';

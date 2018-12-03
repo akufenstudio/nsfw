@@ -10,7 +10,7 @@
  *  \__|  \__|  \______/  \__|       \__/     \__|      \__/            \__|  \__| \__|  \__| \__|       \__|  \__|
  * 
  *
- * Copyright (c) 2016-present Akufen - AKFN - <http://akufen.ca>
+ * Copyright (c) 2016-present Akufen - AKFN - <https://akufen.ca>
  *
  * Released under the MIT License.
  * 
@@ -32,7 +32,7 @@
  *
  */
 
-/Users/romain/Sites/nsfw/_temp/canvas/pixi/CoverSprite.jsclass CoverSprite extends PIXI.Sprite {
+class CoverSprite extends PIXI.Sprite {
 
     constructor ( texture, frameWidth, frameHeight, hAlign = 0.5, vAlign = 0.5 ) {
         super(texture);

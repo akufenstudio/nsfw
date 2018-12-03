@@ -10,7 +10,7 @@
  *  \__|  \__|  \______/  \__|       \__/     \__|      \__/            \__|  \__| \__|  \__| \__|       \__|  \__|
  * 
  *
- * Copyright (c) 2016-present Akufen - AKFN - <http://akufen.ca>
+ * Copyright (c) 2016-present Akufen - AKFN - <https://akufen.ca>
  *
  * Released under the MIT License.
  * 
@@ -32,7 +32,7 @@
  *
  */
 
-/Users/romain/Sites/nsfw/_temp/net/router/Router.jsimport createHistory from 'history/createBrowserHistory';
+import createHistory from 'history/createBrowserHistory';
 import Transition from './Transition';
 import TransitionManager from './TransitionManager';
 import DomManager from './DomManager';

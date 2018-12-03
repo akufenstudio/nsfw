@@ -10,7 +10,7 @@
  *  \__|  \__|  \______/  \__|       \__/     \__|      \__/            \__|  \__| \__|  \__| \__|       \__|  \__|
  * 
  *
- * Copyright (c) 2016-present Akufen - AKFN - <http://akufen.ca>
+ * Copyright (c) 2016-present Akufen - AKFN - <https://akufen.ca>
  *
  * Released under the MIT License.
  * 
@@ -32,7 +32,7 @@
  *
  */
 
-/Users/romain/Sites/nsfw/_temp/net/router/events.jsconst events = {
+const events = {
 	VIEW_ADD: "@navigator / VIEW_ADD",
 	VIEW_ADDED: "@navigator / VIEW_ADDED",
 	VIEW_REMOVE: "@navigator / VIEW_REMOVE",

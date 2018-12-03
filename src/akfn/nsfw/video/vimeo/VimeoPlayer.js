@@ -10,7 +10,7 @@
  *  \__|  \__|  \______/  \__|       \__/     \__|      \__/            \__|  \__| \__|  \__| \__|       \__|  \__|
  * 
  *
- * Copyright (c) 2016-present Akufen - AKFN - <http://akufen.ca>
+ * Copyright (c) 2016-present Akufen - AKFN - <https://akufen.ca>
  *
  * Released under the MIT License.
  * 
@@ -32,7 +32,7 @@
  *
  */
 
-/Users/romain/Sites/nsfw/_temp/video/vimeo/VimeoPlayer.jsimport EventsManager from 'akfn/nsfw/events/EventsManager';
+import EventsManager from 'akfn/nsfw/events/EventsManager';
 import NSFWEvents from 'akfn/nsfw/events/NSFWEvents';
 import { merge } from 'akfn/nsfw/utils/utils';
 
