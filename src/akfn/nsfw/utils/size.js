@@ -32,7 +32,7 @@
  *
  */
 
-export function getPageHeight () {
+/Users/romain/Sites/nsfw/_temp/utils/size.jsexport function getPageHeight () {
     const body = document.body;
     const html = document.documentElement;
 

@@ -32,7 +32,7 @@
  *
  */
 
-class CanvasFromImage {
+/Users/romain/Sites/nsfw/_temp/canvas/d2/CanvasFromImage.jsclass CanvasFromImage {
 
 
 	constructor( target, autoRender = true ) {

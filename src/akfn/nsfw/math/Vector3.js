@@ -32,7 +32,7 @@
  *
  */
 
-class Vector3 {
+/Users/romain/Sites/nsfw/_temp/math/Vector3.jsclass Vector3 {
 
     constructor ( x = 0, y = 0, z = 0 ) {
         this.x = x;

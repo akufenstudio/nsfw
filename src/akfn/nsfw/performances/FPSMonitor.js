@@ -32,7 +32,7 @@
  *
  */
 
-class FPSMonitor {
+/Users/romain/Sites/nsfw/_temp/performances/FPSMonitor.jsclass FPSMonitor {
 
 	constructor( callback, options = { timer: 500 } ) {
 

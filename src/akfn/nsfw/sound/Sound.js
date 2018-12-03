@@ -32,7 +32,7 @@
  *
  */
 
-class Sound {
+/Users/romain/Sites/nsfw/_temp/sound/Sound.jsclass Sound {
 
     constructor ({ id, src, loop, volume }) {
         this.id = id;

@@ -32,7 +32,7 @@
  *
  */
 
-export function arrayify(nodeCollection) {
+/Users/romain/Sites/nsfw/_temp/utils/backup.jsexport function arrayify(nodeCollection) {
     return Array.from(nodeCollection);
 }
 

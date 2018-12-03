@@ -32,7 +32,7 @@
  *
  */
 
-import CanvasFromImage from './CanvasFromImage';
+/Users/romain/Sites/nsfw/_temp/canvas/d2/EasyBlendMode.jsimport CanvasFromImage from './CanvasFromImage';
 
 /**
  * 

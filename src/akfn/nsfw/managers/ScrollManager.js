@@ -32,7 +32,7 @@
  *
  */
 
-import { getScrollTop } from '../utils/scroll';
+/Users/romain/Sites/nsfw/_temp/managers/ScrollManager.jsimport { getScrollTop } from '../utils/scroll';
 
 /**
  * 

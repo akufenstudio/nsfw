@@ -32,7 +32,7 @@
  *
  */
 
-import { merge } from 'akfn/nsfw/utils/utils';
+/Users/romain/Sites/nsfw/_temp/dom/TilingSprite.jsimport { merge } from 'akfn/nsfw/utils/utils';
 
 /**
  * Tiling Sprite

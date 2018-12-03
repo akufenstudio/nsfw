@@ -32,7 +32,7 @@
  *
  */
 
-class EmailShare {
+/Users/romain/Sites/nsfw/_temp/sharing/EmailShare.jsclass EmailShare {
 	constructor(element, subject, content) {
 		
 		// Bindings

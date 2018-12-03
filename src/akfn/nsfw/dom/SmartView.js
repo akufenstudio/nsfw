@@ -32,7 +32,7 @@
  *
  */
 
-import ViewportManager from 'akfn/nsfw/managers/ViewportManager';
+/Users/romain/Sites/nsfw/_temp/dom/SmartView.jsimport ViewportManager from 'akfn/nsfw/managers/ViewportManager';
 
 /**
  * 

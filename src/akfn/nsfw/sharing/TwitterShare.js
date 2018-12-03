@@ -32,7 +32,7 @@
  *
  */
 
-class TwitterShare {
+/Users/romain/Sites/nsfw/_temp/sharing/TwitterShare.jsclass TwitterShare {
 	constructor(element, text, hashtags, via) {
 		
 		// Bindings

@@ -32,7 +32,7 @@
  *
  */
 
-const events = {
+/Users/romain/Sites/nsfw/_temp/sound/events.jsconst events = {
 	ADD: 	"@sound / ADD",
 	MUTE: 	"@sound / MUTE",
 	UNMUTE: "@sound / UNMUTE",

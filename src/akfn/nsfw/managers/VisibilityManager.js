@@ -32,7 +32,7 @@
  *
  */
 
-class VisibilityManager {
+/Users/romain/Sites/nsfw/_temp/managers/VisibilityManager.jsclass VisibilityManager {
 
 
 	static start() {

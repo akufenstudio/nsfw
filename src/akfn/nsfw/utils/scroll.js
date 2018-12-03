@@ -32,7 +32,7 @@
  *
  */
 
-export function getScrollTop() {
+/Users/romain/Sites/nsfw/_temp/utils/scroll.jsexport function getScrollTop() {
     return (window.pageYOffset || document.documentElement.scrollTop) - (document.documentElement.clientTop || 0);
 }
 

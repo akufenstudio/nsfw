@@ -32,7 +32,7 @@
  *
  */
 
-import RafManager from 'akfn/nsfw/managers/RafManager';
+/Users/romain/Sites/nsfw/_temp/dom/ParallaxView.jsimport RafManager from 'akfn/nsfw/managers/RafManager';
 
 import DisplayObject from 'akfn/nsfw/dom/DisplayObject';
 import SmartView from 'akfn/nsfw/dom/SmartView';
@@ -63,8 +63,8 @@ class ParallaxView extends SmartView {
 		this.ratio = 0;
 
 		// options
-		const { amplitude, smooth, depth } = options;
-		this.options = { amplitude: amplitude || 200, smooth: smooth || .1, depth: depth || 1 };
+		const { amplitude, smooth, depth, ratio } = options;
+		this.options = { amplitude: amplitude || 200, smooth: smooth || .1, depth: depth || 1, ratio: ratio || 0 };
 
 		this.locate();
 

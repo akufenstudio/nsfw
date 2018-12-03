@@ -32,7 +32,7 @@
  *
  */
 
-const events = {
+/Users/romain/Sites/nsfw/_temp/video/vimeo/events.jsconst events = {
 	PLAY : "@vimeo / PLAY",
 	PAUSE : "@vimeo / PAUSE",
 	END : "@vimeo / END",

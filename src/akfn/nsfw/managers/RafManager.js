@@ -32,7 +32,7 @@
  *
  */
 
-class RafManager {
+/Users/romain/Sites/nsfw/_temp/managers/RafManager.jsclass RafManager {
 	
 	constructor() {
 

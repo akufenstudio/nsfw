@@ -32,7 +32,7 @@
  *
  */
 
-class WheelManager {
+/Users/romain/Sites/nsfw/_temp/managers/WheelManager.jsclass WheelManager {
 
 
 	static start ( debounced = true, debounceTime = 300 ) {

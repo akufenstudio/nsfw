@@ -32,7 +32,7 @@
  *
  */
 
-class GoogleAnalyticsTracking {
+/Users/romain/Sites/nsfw/_temp/tracking/GoogleAnalyticsTracking.jsclass GoogleAnalyticsTracking {
 	constructor(UA, debug = false, pageviewOnInit = false) {
 		// Binding
 		this.initAnalytics = ::this.initAnalytics;

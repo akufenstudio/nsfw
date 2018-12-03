@@ -32,7 +32,7 @@
  *
  */
 
-import { scrollTo } from '../utils/scroll';
+/Users/romain/Sites/nsfw/_temp/barba/BarbaController.jsimport { scrollTo } from '../utils/scroll';
 
 /**
  * 

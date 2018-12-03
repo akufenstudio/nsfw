@@ -32,14 +32,12 @@
  *
  */
 
-import NSFWEvents from 'akfn/nsfw/events/NSFWEvents';
+/Users/romain/Sites/nsfw/_temp/geo/gmaps/GoogleMapsPinsIcons.jsimport NSFWEvents from 'akfn/nsfw/events/NSFWEvents';
 import EventsManager from 'akfn/nsfw/events/EventsManager';
 
 import { merge } from 'akfn/nsfw/utils/utils';
 
 /**
- *
- * N * S * F * W
  * 
  * Google Maps Pins
  *

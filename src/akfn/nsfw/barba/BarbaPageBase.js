@@ -32,7 +32,7 @@
  *
  */
 
-import ResizeManager from '../managers/ResizeManager';
+/Users/romain/Sites/nsfw/_temp/barba/BarbaPageBase.jsimport ResizeManager from '../managers/ResizeManager';
 import BarbaController from './BarbaController';
 
 

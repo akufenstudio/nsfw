@@ -32,7 +32,7 @@
  *
  */
 
-class ResizeManager {
+/Users/romain/Sites/nsfw/_temp/managers/ResizeManager.jsclass ResizeManager {
 
 	constructor( debounceTime ) {
 

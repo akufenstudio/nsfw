@@ -32,7 +32,7 @@
  *
  */
 
-class Simple1DNoise {
+/Users/romain/Sites/nsfw/_temp/graphics/Simple1DNoise.jsclass Simple1DNoise {
 
 	constructor ( max = 256 ) {
 

@@ -32,7 +32,7 @@
  *
  */
 
-import EventsManager from 'akfn/nsfw/events/EventsManager';
+/Users/romain/Sites/nsfw/_temp/sound/SoundMapper.jsimport EventsManager from 'akfn/nsfw/events/EventsManager';
 import NSFWEvents from 'akfn/nsfw/events/NSFWEvents';
 
 

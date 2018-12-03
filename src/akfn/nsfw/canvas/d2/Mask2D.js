@@ -32,7 +32,7 @@
  *
  */
 
-import CanvasFromImage from './CanvasFromImage';
+/Users/romain/Sites/nsfw/_temp/canvas/d2/Mask2D.jsimport CanvasFromImage from './CanvasFromImage';
 
 /**
  * 

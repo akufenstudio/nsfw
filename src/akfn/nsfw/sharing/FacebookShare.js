@@ -32,7 +32,7 @@
  *
  */
 
-class FacebookShare {
+/Users/romain/Sites/nsfw/_temp/sharing/FacebookShare.jsclass FacebookShare {
     constructor(element, callback, hashtag, quote, mobile_iframe = false) {
 
         // Bindings

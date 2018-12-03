@@ -32,7 +32,7 @@
  *
  */
 
-export function map(n, start1, stop1, start2, stop2) {
+/Users/romain/Sites/nsfw/_temp/utils/utils.jsexport function map(n, start1, stop1, start2, stop2) {
     return ((n-start1)/(stop1-start1))*(stop2-start2)+start2;
 }
 
@@ -117,7 +117,7 @@ export function merge (...args) {
 
     return filtered.reduce( ( acc, cur ) => {
         Object.keys(cur).forEach((key) => {
-            if ( typeof acc[key] === 'object' && typeof cur[key] === 'object' ) {
+            if ( typeof acc[key] === 'object' && typeof cur[key] === 'object' && cur[key].length === undefined) {
                 acc[key] = merge(acc[key], cur[key]);
             } else {
                 acc[key] = cur[key];

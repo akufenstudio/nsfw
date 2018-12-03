@@ -32,7 +32,7 @@
  *
  */
 
-import EventsManager from 'akfn/nsfw/events/EventsManager';
+/Users/romain/Sites/nsfw/_temp/video/vimeo/VimeoPlayer.jsimport EventsManager from 'akfn/nsfw/events/EventsManager';
 import NSFWEvents from 'akfn/nsfw/events/NSFWEvents';
 import { merge } from 'akfn/nsfw/utils/utils';
 
@@ -40,7 +40,7 @@ import { merge } from 'akfn/nsfw/utils/utils';
  * VIMEO
  * PLAYER
  *
- * v1.0
+ * v2.0
  */
 
 class VimeoPlayer {
@@ -56,6 +56,7 @@ class VimeoPlayer {
 		// Default Options
 		const defaultOptions = {
 			el : '',
+			src : '',
 			callback : '',
 			vimeoOptions: {
 				id: '',
@@ -74,15 +75,25 @@ class VimeoPlayer {
 	}
 
 	initVideo(){
-		this.player = new Vimeo.Player(this.mergedOptions.el, this.mergedOptions.vimeoOptions);
-		this.player.loadVideo(this.mergedOptions.vimeoOptions.id).then(this.onVideoLoaded);
+		// Create iframe
+        this.$iframe = document.createElement('iframe');
+        this.$iframe.setAttribute('src', this.mergedOptions.src);
+        this.$iframe.setAttribute('frameborder', 0);
+        this.$iframe.setAttribute('webkitallowfullscreen', true);
+        this.$iframe.setAttribute('mozallowfullscreen', true);
+        this.$iframe.setAttribute('allowfullscreen', true);
+        this.$iframe.setAttribute('allow', 'autoplay; encrypted-media');
+        this.mergedOptions.el.appendChild(this.$iframe);
+
+        // Create player
+		this.player = new Vimeo.Player(this.$iframe, this.mergedOptions.vimeoOptions);
+		this.emitEvents();
 	}
 
 	onVideoLoaded(){
 		if ( this.mergedOptions.callback && typeof this.mergedOptions.callback === 'function' ) {
 			this.mergedOptions.callback();
 		}
-		this.emitEvents();
 	}
 
 	play(){
@@ -131,6 +142,8 @@ class VimeoPlayer {
 	}
 
 	emitLoaded(){ 
+		this.onVideoLoaded();
+		
 		EventsManager.emit(NSFWEvents.VimeoPlayer.LOADED, this.player); 
 	}
 
@@ -140,7 +153,7 @@ class VimeoPlayer {
 		this.player.off('ended', this.emitEnded);
 		this.player.off('seeked', this.emitSeeked);
 		this.player.off('loaded', this.emitLoaded);
-		this.player.unload();
+		this.player.destroy();
 	}
 }
 export default VimeoPlayer;

@@ -32,7 +32,7 @@
  *
  */
 
-class ViewportManager {
+/Users/romain/Sites/nsfw/_temp/managers/ViewportManager.jsclass ViewportManager {
 
 
 	constructor() {
@@ -85,7 +85,7 @@ class ViewportManager {
 
 			// check if existing watcher fits wanted ratio
 			if(!watchers[ratio]) {
-				watchers[ratio] = new IntersectionObserver( instance.update, { threshold:[0,element.options.ratio] } );
+				watchers[ratio] = new IntersectionObserver( instance.update, { threshold:[element.options.ratio] } );
 			} 
 
 			watchers[ratio].observe(element.view);
@@ -103,9 +103,10 @@ class ViewportManager {
 		const instance 	= ViewportManager.instance;
 		const watcher 	= instance.watchers[String(element.options.ratio)];
 
-		delete instance.views[id];
-
-		if(element) watcher.unobserve(element.view);
+		if ( watcher ) {
+			delete instance.views[id];
+			if(element) watcher.unobserve(element.view);
+		}
 	}
 
 }

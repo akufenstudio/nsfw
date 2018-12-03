@@ -32,7 +32,7 @@
  *
  */
 
-class SoundChannel {
+/Users/romain/Sites/nsfw/_temp/sound/SoundChannel.jsclass SoundChannel {
 
 	constructor () {
 
@@ -108,7 +108,7 @@ class SoundChannel {
 	/**
 	 * Stop Channel
 	 */
-	stop () {
+	stop ( id ) {
 
 		if(this.verbose) console.log(`%cSoundChannel :: stop :: ${id}`, `color:#ddd;`);
 

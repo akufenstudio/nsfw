@@ -32,7 +32,7 @@
  *
  */
 
-const defaults = { useTexture:true, useGeometry:true };
+/Users/romain/Sites/nsfw/_temp/canvas/three/ThreeLoader.jsconst defaults = { useTexture:true, useGeometry:true };
 
 class ThreeLoader {
 

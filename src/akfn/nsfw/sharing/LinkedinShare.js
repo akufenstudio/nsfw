@@ -32,7 +32,7 @@
  *
  */
 
-class LinkedinShare {
+/Users/romain/Sites/nsfw/_temp/sharing/LinkedinShare.jsclass LinkedinShare {
 	constructor(element, title, summary, source) {
 		
 		// Bindings

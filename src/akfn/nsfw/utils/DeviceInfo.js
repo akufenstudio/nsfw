@@ -32,7 +32,7 @@
  *
  */
 
-import GPUTest from 'akfn/nsfw/performances/GPUTest';
+/Users/romain/Sites/nsfw/_temp/utils/DeviceInfo.jsimport GPUTest from 'akfn/nsfw/performances/GPUTest';
 import CPUTest from 'akfn/nsfw/performances/CPUTest';
 
 import { merge } from 'akfn/nsfw/utils/utils';
@@ -66,7 +66,6 @@ class DeviceInfo {
 		this.options = merge(defaultOptions,opts);
 
 		// Device detection
-		const MobileDetect = require('mobile-detect');
 		const md = new MobileDetect(window.navigator.userAgent);
 		
 		window.isMobile = md.phone() !== null;
@@ -76,21 +75,16 @@ class DeviceInfo {
 		this.device = window.isMobile ? 'mobile' : window.isTablet ? 'tablet' : 'desktop';
 		document.body.classList.add( this.device );
 
-		// Fastlick
-		if(!window.isDesktop){
-			const attachFastClick = require('fastclick');
-			attachFastClick.attach(document.body);
-		}
-
 		// Browsers
 		const nua = window.navigator.userAgent.toLowerCase();
 
 		window.isIE       = this.getInternetExplorerVersion() !== -1;
-		window.isOpera    = ( nua.indexOf("opr/") > -1 );
-		window.isChrome   = !window.isOpera && ( nua.indexOf("chrome") > -1 || nua.indexOf("crios") > -1 );
-		window.isSafari   = !window.isOpera && !window.isChrome && ( nua.indexOf("safari") > -1 );
-		window.isFirefox  = ( nua.indexOf("firefox") > -1 );
 		window.isEdge  	  = nua.indexOf("edge") > -1;
+		window.isOpera    = ( nua.indexOf("opr/") > -1 );
+		window.isChrome   = !window.isEdge && !window.isOpera && ( nua.indexOf("chrome") > -1 || nua.indexOf("crios") > -1 );
+		window.isSafari   = !window.isEdge && !window.isOpera && !window.isChrome && ( nua.indexOf("safari") > -1 );
+		window.isFirefox  = ( nua.indexOf("firefox") > -1 );
+		
 
 		this.browser = this.getBrowser();
 		document.body.classList.add(this.browser);

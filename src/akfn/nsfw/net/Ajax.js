@@ -32,7 +32,7 @@
  *
  */
 
-class Ajax {
+/Users/romain/Sites/nsfw/_temp/net/Ajax.jsclass Ajax {
 
     static load(url, callback = null, method = 'GET', params = null) {
 

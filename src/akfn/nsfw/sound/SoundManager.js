@@ -32,7 +32,7 @@
  *
  */
 
-import NSFWEvents from '../events/NSFWEvents';
+/Users/romain/Sites/nsfw/_temp/sound/SoundManager.jsimport NSFWEvents from '../events/NSFWEvents';
 import EventsManager from '../events/EventsManager';
 
 import VisibilityManager from '../managers/VisibilityManager';
@@ -197,7 +197,7 @@ class SoundManager {
 
 		for ( let i = 0; i < this.channels.length; i++ ) {
 			if ( this.channels[i].id === id ) {
-				this.channels[i].stop();
+				this.channels[i].stop( id );
 			}
 		}
 	}

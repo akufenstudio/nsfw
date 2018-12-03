@@ -32,7 +32,7 @@
  *
  */
 
-self.addEventListener('message', receiveMessage);
+/Users/romain/Sites/nsfw/_temp/performances/worker.jsself.addEventListener('message', receiveMessage);
 
 self.calculate = function(e, id) {
     var start = Date.now();

@@ -32,9 +32,10 @@
  *
  */
 
-import SoundManagerEvents from 'akfn/nsfw/sound/events';
+/Users/romain/Sites/nsfw/_temp/events/NSFWEvents.jsimport SoundManagerEvents from 'akfn/nsfw/sound/events';
 import GoogleMapEvents from 'akfn/nsfw/geo/gmaps/events';
 import VimeoPlayerEvents from 'akfn/nsfw/video/vimeo/events';
+import YoutubePlayerEvents from 'akfn/nsfw/video/youtube/events';
 import RouterEvents from 'akfn/nsfw/net/router/events';
 
 /**
@@ -56,7 +57,10 @@ const NSFWEvents = {
 	GoogleMap: GoogleMapEvents,
 
 	// VimeoPlayer
-	VimeoPlayer: VimeoPlayerEvents
+	VimeoPlayer: VimeoPlayerEvents,
+
+	// YoutubePlayer
+	YoutubePlayer: YoutubePlayerEvents
 
 };
 

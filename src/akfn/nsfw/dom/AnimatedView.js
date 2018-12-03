@@ -32,7 +32,7 @@
  *
  */
 
-import SmartView from 'akfn/nsfw/dom/SmartView';
+/Users/romain/Sites/nsfw/_temp/dom/AnimatedView.jsimport SmartView from 'akfn/nsfw/dom/SmartView';
 
 /**
  * 
@@ -45,7 +45,7 @@ class AnimatedView extends SmartView {
 
 	constructor(id, view, options = {}) {
 
-		super(id, view);
+		super(id, view, options);
 	}
 
 	/**

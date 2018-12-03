@@ -32,7 +32,7 @@
  *
  */
 
-export default function log ( prefix ) {
+/Users/romain/Sites/nsfw/_temp/utils/log.jsexport default function log ( prefix ) {
     return function ( ...message ) {
         console.log(`${prefix} ::`, ...message);
     };

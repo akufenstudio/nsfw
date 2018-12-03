@@ -32,7 +32,7 @@
  *
  */
 
-import { merge } from 'akfn/nsfw/utils/utils';
+/Users/romain/Sites/nsfw/_temp/canvas/three/THREEApp.jsimport { merge } from 'akfn/nsfw/utils/utils';
 
 const defaults = {
     width: window.innerWidth,

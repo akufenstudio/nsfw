@@ -32,7 +32,7 @@
  *
  */
 
-import Vector2 from '../math/Vector2';
+/Users/romain/Sites/nsfw/_temp/dom/DisplayObject.jsimport Vector2 from '../math/Vector2';
 import Vector3 from '../math/Vector3';
 
 /**
@@ -45,24 +45,13 @@ class DisplayObject {
 	
 	constructor( view, options = { position:'static' } ) {
 
+		// security check
+		if(!view) console.error('DisplayObject :: view is not valid.');
+
 		// bindings
 		this.click 	= ::this.click;
 		this.over 	= ::this.over;
 		this.out 	= ::this.out;
-
-		// security check
-		if(!view) {
-
-			/**
-			 * More about dom-create-element
-			 * https://github.com/BaptisteBriel/dom-create-element
-			 */
-
-			const create = require('dom-create-element');
-
-			view = create({ selector: 'div' });
-
-		}
 
 		// view
 		this.view = view;

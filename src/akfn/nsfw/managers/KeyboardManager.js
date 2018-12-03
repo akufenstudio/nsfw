@@ -32,7 +32,7 @@
  *
  */
 
-class KeyboardManager {
+/Users/romain/Sites/nsfw/_temp/managers/KeyboardManager.jsclass KeyboardManager {
 
     static start ( event = 'keypress' ) {
         KeyboardManager.views = [];

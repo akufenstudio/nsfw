@@ -32,7 +32,7 @@
  *
  */
 
-import Vector2 from '../math/Vector2';
+/Users/romain/Sites/nsfw/_temp/managers/MouseManager.jsimport Vector2 from '../math/Vector2';
 
 /**
  * 

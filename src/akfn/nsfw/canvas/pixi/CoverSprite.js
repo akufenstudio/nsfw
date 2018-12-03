@@ -32,7 +32,7 @@
  *
  */
 
-class CoverSprite extends PIXI.Sprite {
+/Users/romain/Sites/nsfw/_temp/canvas/pixi/CoverSprite.jsclass CoverSprite extends PIXI.Sprite {
 
     constructor ( texture, frameWidth, frameHeight, hAlign = 0.5, vAlign = 0.5 ) {
         super(texture);

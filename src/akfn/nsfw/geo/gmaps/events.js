@@ -32,7 +32,7 @@
  *
  */
 
-const events = {
+/Users/romain/Sites/nsfw/_temp/geo/gmaps/events.jsconst events = {
 	CLOSE_ALL_INFOBOX : "@infobox / CLOSE"
 }
 

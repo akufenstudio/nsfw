@@ -32,4 +32,4 @@
  *
  */
 
-export { default as CoverSprite } from './CoverSprite';
+/Users/romain/Sites/nsfw/_temp/canvas/pixi/index.jsexport { default as CoverSprite } from './CoverSprite';

@@ -32,7 +32,7 @@
  *
  */
 
-export function getParams() {
+/Users/romain/Sites/nsfw/_temp/utils/url.jsexport function getParams() {
     const queryString = {};
     const query = window.location.search.substring(1);
     const vars = query.split("&");

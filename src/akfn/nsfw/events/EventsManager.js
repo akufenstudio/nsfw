@@ -32,7 +32,7 @@
  *
  */
 
-class EventsManager {
+/Users/romain/Sites/nsfw/_temp/events/EventsManager.jsclass EventsManager {
 
 	/**
 	 * Emit event
