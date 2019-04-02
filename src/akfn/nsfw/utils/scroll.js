@@ -32,6 +32,11 @@
  *
  */
 
+/**
+ * Get scroll top position
+ *
+ * @return float
+ */
 export function getScrollTop() {
     return (window.pageYOffset || document.documentElement.scrollTop) - (document.documentElement.clientTop || 0);
 }
@@ -39,10 +44,12 @@ export function getScrollTop() {
 /**
  * Scroll to (x,y)
  *
+ *  DEPRECATED ?
+ * 
  * @return void
  */
 export function scrollTo(x, y, wrapper = window ) {
-    if (window.isSafari) {
+    if (NSFW.isSafari) {
         console.warn('scrollTo :: you need to provide a dom element.');
         wrapper.scrollTop = y;
     } else {

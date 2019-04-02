@@ -32,6 +32,16 @@
  *
  */
 
+/**
+ * GoogleAnalyticsTracking
+ * v1.0
+ * 
+ * Add class '.ga-event' to the link you want to track
+ * Add data attribute "data-category", "data-action", "data-label", "data-value"
+ * @param  UA    {String} - Google Analytics UA
+ * @param  Debug {Bool} - Run Analytics in debug mode
+ * @param  PageviewOnInit {Bool} - Send page view on init
+*/
 class GoogleAnalyticsTracking {
 	constructor(UA, debug = false, pageviewOnInit = false) {
 		// Binding

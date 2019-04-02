@@ -32,6 +32,12 @@
  *
  */
 
+/**
+ * Resize Manager
+ *
+ * v1.01
+ */
+
 class ResizeManager {
 
 	constructor( debounceTime ) {
@@ -98,10 +104,10 @@ class ResizeManager {
 
 		const views = ResizeManager.instance.views;
 
-		window.w = document.documentElement.clientWidth;
-		window.h = document.documentElement.clientHeight;
+		NSFW.w = document.documentElement.clientWidth;
+		NSFW.h = document.documentElement.clientHeight;
 
-		for(let i=0; i < views.length; i++) views[i].fn(window.w,window.h);
+		for(let i=0; i < views.length; i++) views[i].fn(NSFW.w,NSFW.h);
 	}
 
 }

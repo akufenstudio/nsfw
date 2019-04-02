@@ -33,21 +33,30 @@
  */
 
 /**
- * Sound
- *
- * v1.05
+ * NSFW 1.0
  */
 
+class NSFW {
 
-class Sound {
+    static start( callback ) {
 
-    constructor ({ id, src, loop, volume }) {
-        this.id = id;
-        this.src = src;
-        this.loop = loop || false;
-        this.volume = typeof volume === 'number' ? volume : 1;
+        // Properties
+        window.NSFW = {};
+
+        // Paths
+        window.NSFW.PUBLIC_PATH = PUBLIC_PATH;
+        window.NSFW.PUBLIC_PATH_JS = PUBLIC_PATH_JS;
+        window.NSFW.PUBLIC_PATH_CSS = PUBLIC_PATH_CSS;
+
+        if(document.body) {
+            callback();
+        } else {
+            document.addEventListener('DOMContentLoaded', callback);
+        }
+
     }
+
 
 }
 
-export default Sound;
+export default NSFW.start;

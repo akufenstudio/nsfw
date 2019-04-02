@@ -32,6 +32,14 @@
  *
  */
 
+/**
+ * 
+ * YoutubePlayer
+ * Events
+ *
+ * v1.0
+ */
+
 const events = {
 	PLAY : "@youtube / PLAY",
 	PAUSE : "@youtube / PAUSE",

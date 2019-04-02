@@ -32,6 +32,14 @@
  *
  */
 
+/**
+ * 
+ * Viewport
+ * Manager
+ *
+ * v1.1
+ */
+
 class ViewportManager {
 
 
@@ -43,9 +51,6 @@ class ViewportManager {
 		// properties
 		this.views = {};
 		this.watchers = {};
-
-		// polyfill for IE & Safari (._.)
-		require('intersection-observer');
 	}
 
 	static start () {
@@ -79,16 +84,19 @@ class ViewportManager {
 
 		instance.views[id] = element;
 		
+		// create a new intersection observer for this element
 		if(element) {
+			const root = element.options.root;
+			const rootMargin = String(element.options.rootMargin);
+			const threshold = element.options.threshold;
 
-			const ratio = String(element.options.ratio);
+			watchers[id] = new IntersectionObserver(instance.update, {
+				root,
+				rootMargin,
+				threshold
+			});
 
-			// check if existing watcher fits wanted ratio
-			if(!watchers[ratio]) {
-				watchers[ratio] = new IntersectionObserver( instance.update, { threshold:[element.options.ratio] } );
-			} 
-
-			watchers[ratio].observe(element.view);
+			watchers[id].observe(element.view);
 		}
 
 	}
@@ -101,7 +109,7 @@ class ViewportManager {
 	static unbind ( id, element ) {
 
 		const instance 	= ViewportManager.instance;
-		const watcher 	= instance.watchers[String(element.options.ratio)];
+		const watcher 	= instance.watchers[id];
 
 		if ( watcher ) {
 			delete instance.views[id];

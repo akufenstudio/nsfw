@@ -58,7 +58,7 @@ class ScrollManager {
 	 */
 	static scroll() {
 
-		window.currentScrollTop = getScrollTop();
+		NSFW.currentScrollTop = getScrollTop();
 
 		for(let i=0; i < ScrollManager.views.length; i++) ScrollManager.views[i].fn();
 

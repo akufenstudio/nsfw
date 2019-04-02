@@ -32,6 +32,13 @@
  *
  */
 
+/**
+ * Router
+ * Cache
+ *
+ * v1.0
+ */
+
 class Cache {
 
 	constructor () {

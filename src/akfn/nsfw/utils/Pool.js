@@ -32,22 +32,25 @@
  *
  */
 
-/**
- * Sound
- *
- * v1.05
- */
+class Pool {
 
+    constructor ( create ) {
+        this.list = [];
 
-class Sound {
-
-    constructor ({ id, src, loop, volume }) {
-        this.id = id;
-        this.src = src;
-        this.loop = loop || false;
-        this.volume = typeof volume === 'number' ? volume : 1;
+        this.create = create;
     }
 
+    get () {
+        if ( this.list.length === 0 ) {
+            return this.create();
+        } else {
+            return this.list.pop();
+        }
+    }
+
+    release ( item ) {
+        this.list.push(item);
+    }
 }
 
-export default Sound;
+export default Pool;

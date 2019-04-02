@@ -32,22 +32,71 @@
  *
  */
 
-/**
- * Sound
- *
- * v1.05
- */
+const polyfillTests = [
+    { file: `${PUBLIC_PATH_JS}/fetch.polyfill.js`, supported: 'fetch' in window, name: 'fetch' },
+    { file: `${PUBLIC_PATH_JS}/promise.polyfill.js`, supported: 'Promise' in window, name: 'Promise' },
+    { file: `${PUBLIC_PATH_JS}/intersectionObserver.polyfill.js`, supported: 'IntersectionObserver' in window, name: 'IntersectionObserver' },
+    { file: `${PUBLIC_PATH_JS}/array.polyfill.js`, supported: Array.from, name: 'Array' },
+    { file: `${PUBLIC_PATH_JS}/string.polyfill.js`, supported: String.prototype.includes, name: 'String' },
+];
 
+class Polyfill {
 
-class Sound {
+    static add ( supported, file, name ) {
+        polyfillTests.push({ file, supported, name });
+    }
 
-    constructor ({ id, src, loop, volume }) {
-        this.id = id;
-        this.src = src;
-        this.loop = loop || false;
-        this.volume = typeof volume === 'number' ? volume : 1;
+    static check ( onLoad ) {
+        if ( typeof onLoad !== 'function' ) {
+            console.error(`Polyfill :: you need to provide a callback function parameter to check()`);
+            return;
+        }
+
+        const scriptsToLoad = polyfillTests.reduce( ( scripts, { supported, file, name } ) => {
+            if ( !supported ) {
+                scripts.push({ file, name });
+            }
+
+            return scripts;
+        }, []);
+
+        if ( scriptsToLoad.length <= 0 ) {
+            onLoad();
+        }
+
+        let scriptsLoaded = 0;
+
+        const onScriptLoaded = () => {
+            scriptsLoaded++;
+
+            if ( scriptsLoaded === scriptsToLoad.length ) {
+                onLoad();
+            }
+        };
+
+        for ( let i = 0; i < scriptsToLoad.length; i++ ) {
+            Polyfill.load(scriptsToLoad[i].file, onScriptLoaded, scriptsToLoad[i].name);
+        }
+    }
+
+    static load ( path, callback, name ) {
+        const script = document.createElement('script');
+        script.onload = function () {
+            if ( name ) {
+                Polyfill[`${name}`] = true;
+            }
+
+            callback();
+        };
+        script.onerror = function ( error ) {
+            console.error(error);
+
+            // console.error(new Error(`Failed to load script ${path}`));
+        };
+        script.src = path;
+        document.body.appendChild(script);
     }
 
 }
 
-export default Sound;
+export default Polyfill;

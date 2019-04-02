@@ -156,7 +156,7 @@ class BarbaPageBase {
 	/**
 	 * Resize
 	 */
-	resize ( width = window.w, height = window.h ) {
+	resize () {
 
 		
 	}

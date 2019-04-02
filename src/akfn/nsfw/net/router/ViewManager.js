@@ -38,7 +38,7 @@ import View from './View';
  * Router
  * ViewManager
  *
- * v1.0
+ * v1.1
  */
 
 class ViewManager {
@@ -126,11 +126,18 @@ class ViewManager {
 			const view  = this.views[i];
 			const langs = view.urls[lang];
 
-			for ( let j = 0; j < langs.length; j++ ) {
+			if( langs && langs.length > 0 ) {
 
-				if ( langs[j] === url ) {
-					return  view;
-				} 
+				for ( let j = 0; j < langs.length; j++ ) {
+
+					if ( langs[j] === url ) {
+						return  view;
+					} 
+				}
+
+			} else {
+
+				console.error(`ViewManager : getViewByUrl :: No url matching lang (${lang}) for view ${view.id}`, view);
 			}
 
 		}

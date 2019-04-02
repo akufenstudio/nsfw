@@ -32,6 +32,14 @@
  *
  */
 
+/**
+ * 
+ * Image <img/>
+ * Batcher
+ *
+ * v1.15 
+ */
+
 class ImageBatcher {
 
 

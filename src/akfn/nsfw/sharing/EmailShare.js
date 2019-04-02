@@ -32,6 +32,15 @@
  *
  */
 
+/**
+ * EmailShare
+ * v1.0
+ * 
+ * @param  element       {Element} - Share button - REQUIRED
+ * @param  subject       {String} - Subject of the email
+ * @param  content       {String} - Content of the email
+ */
+
 class EmailShare {
 	constructor(element, subject, content) {
 		

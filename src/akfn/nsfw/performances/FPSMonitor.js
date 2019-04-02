@@ -32,6 +32,14 @@
  *
  */
 
+/**
+ *
+ * FPS Monitor
+ *
+ * v1.0
+ * 
+ */
+
 class FPSMonitor {
 
 	constructor( callback, options = { timer: 500 } ) {

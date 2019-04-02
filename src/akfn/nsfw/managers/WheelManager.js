@@ -32,6 +32,20 @@
  *
  */
 
+/**
+ * 
+ * WHEEL
+ * MANAGER
+ *
+ * v1.0 
+ * 
+ * /!\ Install Virtual Scroll
+ * https://github.com/ayamflow/virtual-scroll
+ * 
+ * npm i virtual-scroll -S
+ * 
+ */
+
 class WheelManager {
 
 

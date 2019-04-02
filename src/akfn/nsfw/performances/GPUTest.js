@@ -124,7 +124,7 @@ class GPUTest {
 
 		if(!points) status = false;
 
-		window.goodGPU = status;
+		NSFW.goodGPU = status;
 
 		// Logs
 		if(options.verbose) this.logReport();
@@ -138,7 +138,7 @@ class GPUTest {
 
 		console.log('%cWebGL report','background-color:#888; padding:0px 10px; color:#fff;');
 		console.log(this.report);
-		console.log(`%cGPU status: ${window.goodGPU ? 'good' : 'not good'}`,'color:#888;');
+		console.log(`%cGPU status: ${NSFW.goodGPU ? 'good' : 'not good'}`,'color:#888;');
 
 	}
 

@@ -32,6 +32,14 @@
  *
  */
 
+/**
+ * SIMPLE NOISE
+ * 
+ * http://www.michaelbromley.co.uk/blog/90/simple-1d-noise-in-javascript
+ *
+ * v1.0
+ */
+
 class Simple1DNoise {
 
 	constructor ( max = 256 ) {

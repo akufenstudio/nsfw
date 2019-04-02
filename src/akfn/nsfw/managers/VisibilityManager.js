@@ -32,6 +32,13 @@
  *
  */
 
+/**
+ * 
+ * Visibility Manager
+ *
+ * v1.0
+ */
+
 class VisibilityManager {
 
 

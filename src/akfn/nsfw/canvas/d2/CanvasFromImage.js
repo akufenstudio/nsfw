@@ -32,6 +32,15 @@
  *
  */
 
+/**
+ * 
+ * Canvas
+ * From
+ * Image
+ *
+ * v 1.0
+ */
+
 class CanvasFromImage {
 
 

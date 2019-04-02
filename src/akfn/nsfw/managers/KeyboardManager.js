@@ -32,6 +32,14 @@
  *
  */
 
+/**
+ * 
+ * Keyboard
+ * Manager
+ *
+ * v1.0
+ */
+
 class KeyboardManager {
 
     static start ( event = 'keypress' ) {

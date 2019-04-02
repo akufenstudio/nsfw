@@ -32,6 +32,13 @@
  *
  */
 
+/**
+ * SOUND
+ * CHANNEL
+ *
+ * v1.1
+ */
+
 class SoundChannel {
 
 	constructor () {

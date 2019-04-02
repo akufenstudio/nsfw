@@ -32,6 +32,16 @@
  *
  */
 
+/**
+ * TwitterShare
+ * v1.0
+ * 
+ * @param  element       {Element} - Share button - REQUIRED
+ * @param  text          {String} - Shared along with the link
+ * @param  hashtags      {String} - Comma-seperated list of hashtags (without #)
+ * @param  via           {String} - A Twitter username to associate to the Tweet
+ */
+
 class TwitterShare {
 	constructor(element, text, hashtags, via) {
 		

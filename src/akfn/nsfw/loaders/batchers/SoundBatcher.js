@@ -32,6 +32,14 @@
  *
  */
 
+/**
+ * 
+ * Sound
+ * Batcher
+ *
+ * v1.1
+ */
+
 class SoundBatcher {
 
 

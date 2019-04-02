@@ -32,6 +32,14 @@
  *
  */
 
+/**
+ * 
+ * Video
+ * Batcher
+ *
+ * v1.15
+ */
+
 class VideoBatcher {
 
 

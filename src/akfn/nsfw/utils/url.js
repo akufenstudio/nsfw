@@ -32,6 +32,11 @@
  *
  */
 
+/**
+ * Returns an object of parameters set in the current url
+ *
+ * @return Object
+ */
 export function getParams() {
     const queryString = {};
     const query = window.location.search.substring(1);

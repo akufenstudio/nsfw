@@ -38,13 +38,12 @@ import ViewportManager from 'akfn/nsfw/managers/ViewportManager';
  * 
  * Smart View
  *
- * v2.0
+ * v2.11
  */
 
 class SmartView {
 
-	constructor ( id, view, options = { ratio: 0 } ) {
-
+	constructor ( id, view, options = {} ) {
 		if(!id || id === '') {
 			console.error('SmartView :: Invalid ID');
 			return;
@@ -55,13 +54,20 @@ class SmartView {
 			return;
 		}
 
+		const defaults = {
+			root: null,
+			intersectionRatio: 0,
+			rootMargin: '0px',
+			threshold: 0
+		};
+
 		// properties
 		this.id = id;
 		this.view = view;
-		this.options = options;
+		this.options = {...defaults, ...options};
 
 		// security check
-		if( !this.options.ratio || typeof this.options.ratio !== 'number' ) this.options.ratio = 0;
+		if( !this.options.intersectionRatio || typeof this.options.intersectionRatio !== 'number' ) this.options.intersectionRatio = 0;
 
 		// settings
 		this.visibility = false;
@@ -77,7 +83,7 @@ class SmartView {
 	 */
 	update ( status ) {
 		
-		this.visibility = status.isIntersecting;
+		this.visibility = status.intersectionRatio > this.options.intersectionRatio;
 	}
 
 	/**
@@ -86,7 +92,7 @@ class SmartView {
 	 */
 	locate () {
 
-		this.offsetTop 		= window.currentScrollTop + this.view.getBoundingClientRect().top;
+		this.offsetTop 		= NSFW.currentScrollTop + this.view.getBoundingClientRect().top;
 		this.offsetBottom 	= this.offsetTop + this.view.offsetHeight;
 	}
 

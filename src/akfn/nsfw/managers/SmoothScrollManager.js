@@ -42,7 +42,7 @@ import { merge } from 'akfn/nsfw/utils/utils';
  *
  * Library must be included in vendors.
  *
- * v1.05
+ * v1.06
  */
 
 class SmoothScrollManager {
@@ -72,10 +72,10 @@ class SmoothScrollManager {
 
 		const instance = SmoothScrollManager.instance;
 
-		window.currentScrollTop = 0;
+		NSFW.currentScrollTop = 0;
 
-		window.scrollBar = Scrollbar.init(instance.root, options);
-		window.scrollBar.addListener(instance.scroll);		
+		NSFW.scrollBar = Scrollbar.init(instance.root, options);
+		NSFW.scrollBar.addListener(instance.scroll);		
 	}
 
 	static debug() {
@@ -86,7 +86,7 @@ class SmoothScrollManager {
 
 	static start( opts ) {
 
-		window.currentScrollTop = 0;
+		NSFW.currentScrollTop = 0;
 
 		// options
 		const defaultOptions = {
@@ -107,8 +107,8 @@ class SmoothScrollManager {
 	 */
 	scroll ( status ) {
 
-		window.currentScrollTop = status.offset.y;
-		window.currentScrollDirection = status.direction.y;
+		NSFW.currentScrollTop = status.offset.y;
+		NSFW.currentScrollDirection = status.direction.y;
 
 		for(let i=0; i < this.views.length; i++) this.views[i].fn(status);
 	}

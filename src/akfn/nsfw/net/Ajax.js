@@ -32,6 +32,13 @@
  *
  */
 
+/**
+ * Ajax Request
+ * Basic sending/posting
+ *
+ * v1.0
+ */
+
 class Ajax {
 
     static load(url, callback = null, method = 'GET', params = null) {
@@ -44,7 +51,7 @@ class Ajax {
         };
 
         // security check IE
-        if(window.isIE) url += '?d=' + Date.now();
+        if(NSFW.isIE) url += '?d=' + Date.now();
 
         // request
         request.open(method, url);

@@ -32,6 +32,11 @@
  *
  */
 
+/**
+ * Get the height of the page
+ *
+ * @return float
+ */
 export function getPageHeight () {
     const body = document.body;
     const html = document.documentElement;

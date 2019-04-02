@@ -32,6 +32,12 @@
  *
  */
 
+/**
+ * Cover Sprite
+ *
+ * v1.0
+ */
+
 class CoverSprite extends PIXI.Sprite {
 
     constructor ( texture, frameWidth, frameHeight, hAlign = 0.5, vAlign = 0.5 ) {

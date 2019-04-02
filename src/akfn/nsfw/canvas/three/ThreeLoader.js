@@ -32,6 +32,12 @@
  *
  */
 
+/**
+ * Custom THREEJS Loader
+ *
+ * Load textures and geometries
+ */
+
 const defaults = { useTexture:true, useGeometry:true };
 
 class ThreeLoader {

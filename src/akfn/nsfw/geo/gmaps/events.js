@@ -32,6 +32,14 @@
  *
  */
 
+/**
+ * 
+ * GoogleMaps
+ * Events
+ *
+ * v1.0
+ */
+
 const events = {
 	CLOSE_ALL_INFOBOX : "@infobox / CLOSE"
 }

@@ -38,7 +38,7 @@ import Router from './Router';
  * Router
  * View
  *
- * v1.0
+ * v1.01
  */
 
 class View {
@@ -51,23 +51,6 @@ class View {
 		this.id = id;
 		
 		this.verbose = false; // verbose is herited by ViewManager
-
-		/**
-		 * TODO:
-		 * Clean up ?
-		 */
-		// handle old view langs 
-		/*this.urls = Object.keys(urls).reduce((newUrls, lang)=>{
-
-			if (typeof urls[lang] === 'string') {
-				newUrls[lang] = [ urls[lang] ];
-			} else {
-				newUrls[lang] = urls[lang];
-			}
-
-			return newUrls;
-
-		}, {});*/
 	}
 
 	/**

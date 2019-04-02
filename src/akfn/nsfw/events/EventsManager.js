@@ -32,6 +32,14 @@
  *
  */
 
+/**
+ * 
+ * Events Manager
+ * based on https://github.com/scottcorgan/tiny-emitter/blob/master/index.js
+ *
+ * v1.02
+ */
+
 class EventsManager {
 
 	/**

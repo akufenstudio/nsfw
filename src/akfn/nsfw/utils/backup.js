@@ -32,6 +32,11 @@
  *
  */
 
+/**
+ * Convert a node collection to a regular array
+ * 
+ * @return Array
+ */
 export function arrayify(nodeCollection) {
     return Array.from(nodeCollection);
 }

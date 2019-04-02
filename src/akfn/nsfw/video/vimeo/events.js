@@ -32,6 +32,14 @@
  *
  */
 
+/**
+ * 
+ * VimeoPlayer
+ * Events
+ *
+ * v1.0
+ */
+
 const events = {
 	PLAY : "@vimeo / PLAY",
 	PAUSE : "@vimeo / PAUSE",

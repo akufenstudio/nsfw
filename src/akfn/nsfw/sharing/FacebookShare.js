@@ -32,6 +32,17 @@
  *
  */
 
+/**
+ * FacebookShare
+ * v1.0
+ * 
+ * @param  element       {Element} - Share button - REQUIRED
+ * @param  callback      {Function} - Callback function returns Object
+ * @param  hashtag       {String}
+ * @param  quote         {String} - Shared along with the link
+ * @param  mobile_iframe {Boolean} - Opens a popup on top of page for mobile
+ */
+
 class FacebookShare {
     constructor(element, callback, hashtag, quote, mobile_iframe = false) {
 

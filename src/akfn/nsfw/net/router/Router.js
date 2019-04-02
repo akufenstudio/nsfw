@@ -39,15 +39,17 @@ import DomManager from './DomManager';
 import ViewManager from './ViewManager';
 import PatternManager from './PatternManager';
 import Cache from './Cache';
-import View from './View';
+
 import NSFWEvents from 'akfn/nsfw/events/NSFWEvents';
 import EventsManager from 'akfn/nsfw/events/EventsManager';
 import { merge } from 'akfn/nsfw/utils/utils';
 
+import AssetsLoader from 'akfn/nsfw/loaders/AssetsLoader';
+
 /**
  * Router
  *
- * v1.0
+ * v1.1
  */
 
 class Router {
@@ -261,7 +263,7 @@ class Router {
 
        } else {
 
-             throw new Error("Router :: No view found");
+            throw new Error("Router :: No view found");
         }    
     }
 
@@ -285,6 +287,9 @@ class Router {
         } else {
             return Router.fetch(url)
                 .then( html => {
+                    // console.log("Router fetch");
+                    // console.log(html);
+
                     if ( cacheEnabled ) {
                         cache.set(url, html);
                     }
@@ -298,10 +303,8 @@ class Router {
     }
 
     static fetch ( url ) {
-        return fetch(url)
-            .then( response => {
-                return response.text();
-            });
+
+        return AssetsLoader.loadFile( url, { headers:{'X-Requested-With':'XMLHttpRequest'} } );
     }
 
     static handleHTML ( html ) {
@@ -332,8 +335,19 @@ class Router {
         const view = viewManager.getView(id);
         const urls = view.urls[lang];
 
-        return urls.length > 1 ? urls : urls[0];
+        return urls.length > 1 ? urls : urls[0];
         
+    }
+
+    /**
+     * Get View By ID
+     * @param {String} id 
+     */
+    static getViewByID( id ) {
+
+        const { viewManager } = Router.instance;
+
+        return viewManager.getView( id );
     }
 
     /**
@@ -346,7 +360,7 @@ class Router {
 
     static setNextLocation ( nextLocation ) {
 
-        Router.instance.nextLocation = nextLocation;
+        Router.instance.nextLocation = window.location.origin + nextLocation;
     }
     
     /**

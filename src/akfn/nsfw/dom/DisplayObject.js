@@ -32,18 +32,15 @@
  *
  */
 
-import Vector2 from '../math/Vector2';
-import Vector3 from '../math/Vector3';
-
 /**
  * DisplayObject
  *
- * v1.05
+ * v1.1
  */
 
 class DisplayObject {
 	
-	constructor( view, options = { position:'static' } ) {
+	constructor( view ) {
 
 		// security check
 		if(!view) console.error('DisplayObject :: view is not valid.');
@@ -56,13 +53,10 @@ class DisplayObject {
 		// view
 		this.view = view;
 
-		// position
-		if( options.position === 'absolute' ) this.view.style.position = 'absolute';
-
 		// settings
-		this.position = new Vector3();
-		this.rotation = new Vector3();
-		this.scale = new Vector2(1,1);
+		this.position = { x: 0, y: 0, z: 0 };
+		this.rotation = { x: 0, y: 0, z: 0 };
+		this.scale = { x: 1, y: 1 };
 
 		this.alpha = 1;
 	}

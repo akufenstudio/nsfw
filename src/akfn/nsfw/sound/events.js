@@ -32,6 +32,14 @@
  *
  */
 
+/**
+ * 
+ * SoundManager
+ * Events
+ *
+ * v1.0
+ */
+
 const events = {
 	ADD: 	"@sound / ADD",
 	MUTE: 	"@sound / MUTE",

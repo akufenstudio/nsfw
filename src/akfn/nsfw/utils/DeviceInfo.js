@@ -40,7 +40,7 @@ import { merge } from 'akfn/nsfw/utils/utils';
 /**
  * Device Info
  *
- * v1.1
+ * v1.2
  */
 
 class DeviceInfo {
@@ -68,32 +68,31 @@ class DeviceInfo {
 		// Device detection
 		const md = new MobileDetect(window.navigator.userAgent);
 		
-		window.isMobile = md.phone() !== null;
-		window.isTablet = md.tablet() !== null;
-		window.isDesktop = !window.isTablet && !window.isMobile;
+		NSFW.isMobile = md.phone() !== null;
+		NSFW.isTablet = md.tablet() !== null;
+		NSFW.isDesktop = !NSFW.isTablet && !NSFW.isMobile;
 
-		this.device = window.isMobile ? 'mobile' : window.isTablet ? 'tablet' : 'desktop';
+		this.device = NSFW.isMobile ? 'mobile' : NSFW.isTablet ? 'tablet' : 'desktop';
 		document.body.classList.add( this.device );
 
 		// Browsers
 		const nua = window.navigator.userAgent.toLowerCase();
 
-		window.isIE       = this.getInternetExplorerVersion() !== -1;
-		window.isEdge  	  = nua.indexOf("edge") > -1;
-		window.isOpera    = ( nua.indexOf("opr/") > -1 );
-		window.isChrome   = !window.isEdge && !window.isOpera && ( nua.indexOf("chrome") > -1 || nua.indexOf("crios") > -1 );
-		window.isSafari   = !window.isEdge && !window.isOpera && !window.isChrome && ( nua.indexOf("safari") > -1 );
-		window.isFirefox  = ( nua.indexOf("firefox") > -1 );
+		NSFW.isIE       = this.getInternetExplorerVersion() !== -1;
+		NSFW.isEdge  	  = nua.indexOf("edge") > -1;
+		NSFW.isOpera    = ( nua.indexOf("opr/") > -1 );
+		NSFW.isChrome   = !NSFW.isEdge && !NSFW.isOpera && ( nua.indexOf("chrome") > -1 || nua.indexOf("crios") > -1 );
+		NSFW.isSafari   = !NSFW.isEdge && !NSFW.isOpera && !NSFW.isChrome && ( nua.indexOf("safari") > -1 );
+		NSFW.isFirefox  = ( nua.indexOf("firefox") > -1 );
 		
-
 		this.browser = this.getBrowser();
 		document.body.classList.add(this.browser);
 
 		// webGL
-		window.isWebGL = this.webGLAvailability();
+		NSFW.isWebGL = this.webGLAvailability();
 
 		// GPU
-		if(window.isWebGL && this.options.gpu) this.gpu = new GPUTest({verbose:false});	
+		if(NSFW.isWebGL && this.options.gpu) this.gpu = new GPUTest({verbose:false});	
 
 		// CPU
 		if(this.options.cpu) {
@@ -118,7 +117,7 @@ class DeviceInfo {
 
 		console.log('Device: ', this.device);
 		console.log('Browser: ', this.browser);
-		console.log('WebGL: ', window.isWebGL);
+		console.log('WebGL: ', NSFW.isWebGL);
 
 		if(this.gpu) this.gpu.logReport();
 		if(this.cpu) this.cpu.logReport();
@@ -136,14 +135,16 @@ class DeviceInfo {
 
 		let rv = -1;
 		let re = null;
-		let ua = window.navigator.userAgent;
 
-		if (window.navigator.appName === 'Microsoft Internet Explorer') {
+		const ua = window.navigator.userAgent;
+		const appName = window.navigator.appName;
+
+		if (appName === 'Microsoft Internet Explorer') {
 
 			re  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
 			if (re.exec(ua) !== null) rv = parseFloat( RegExp.$1 );
 
-		} else if (window.navigator.appName === 'Netscape') {
+		} else if (appName === 'Netscape') {
 
 			re  = new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})");
 			if (re.exec(ua) !== null) rv = parseFloat( RegExp.$1 );
@@ -158,7 +159,7 @@ class DeviceInfo {
 	 */
 	getBrowser() {
 
-		const browsers = {'ie':window.isIE, 'opera':window.isOpera, 'chrome':window.isChrome, 'safari':window.isSafari, 'firefox':window.isFirefox, 'edge':window.isEdge};
+		const browsers = {'ie':NSFW.isIE, 'opera':NSFW.isOpera, 'chrome':NSFW.isChrome, 'safari':NSFW.isSafari, 'firefox':NSFW.isFirefox, 'edge':NSFW.isEdge};
 
 		for( let browser in browsers ) {
 			if(Boolean(browsers[browser])) return browser;

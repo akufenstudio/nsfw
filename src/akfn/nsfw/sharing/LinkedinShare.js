@@ -32,6 +32,16 @@
  *
  */
 
+/**
+ * LinkedinShare
+ * v1.0
+ * 
+ * @param  element       {Element} - Share button - REQUIRED
+ * @param  title         {String} - Shared along with the link
+ * @param  summary       {String} - Shared along with the link
+ * @param  source      	 {String} - Source of the content - Shared along with the link
+ */
+
 class LinkedinShare {
 	constructor(element, title, summary, source) {
 		

@@ -55,7 +55,7 @@ class CPUTest {
 		const options = merge( defaultOptions, opts);
 
 		// properties
-		window.goodCPU = false;
+		NSFW.goodCPU = false;
 		this.time = 10000;
 		
 		// browser capacity check
@@ -112,7 +112,7 @@ class CPUTest {
 
 		if(e) this.time = e.data.message.time;
 
-		window.goodCPU = this.time < this.limit;
+		NSFW.goodCPU = this.time < this.limit;
 
 		if(this.verbose) this.logReport();
 
@@ -126,7 +126,7 @@ class CPUTest {
 	 */
 	logReport() {
 
-		console.log(`%cCPU status: ${window.goodCPU ? 'good' : 'not good'} (${this.time}ms)`, 'color:#888');
+		console.log(`%cCPU status: ${NSFW.goodCPU ? 'good' : 'not good'} (${this.time}ms)`, 'color:#888');
 	}
 
 

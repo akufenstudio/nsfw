@@ -75,10 +75,10 @@ class SoundManager {
 
 		Object.defineProperty(this, 'isMuted', {
 			get: () => { 
-				return window.isMuted;
+				return NSFW.isMuted;
 			},
 			set: ( isMuted ) => {
-				window.isMuted = isMuted;
+				NSFW.isMuted = isMuted;
 
 				if ( window.localStorage ) {
 					window.localStorage.setItem(key, isMuted);

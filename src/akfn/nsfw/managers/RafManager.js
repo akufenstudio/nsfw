@@ -32,6 +32,15 @@
  *
  */
 
+import NSFW from "..";
+
+/**
+ * Request Animation Frame
+ * Manager
+ *
+ * v1.01
+ */
+
 class RafManager {
 	
 	constructor() {
@@ -46,6 +55,9 @@ class RafManager {
 		this.now = Date.now();
 		this.time = this.now;
 		this.deltaTime = 0;
+
+		// debugging shortcut
+		NSFW.RafDebug = RafManager.debug;
 	}
 
 	/* Start */

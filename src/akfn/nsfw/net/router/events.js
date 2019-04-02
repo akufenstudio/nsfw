@@ -32,6 +32,13 @@
  *
  */
 
+/**
+ * Router
+ * Events
+ *
+ * v1.0
+ */
+
 const events = {
 	VIEW_ADD: "@navigator / VIEW_ADD",
 	VIEW_ADDED: "@navigator / VIEW_ADDED",
